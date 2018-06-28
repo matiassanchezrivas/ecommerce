@@ -1,22 +1,23 @@
 const Chalk = require('chalk')
-
 const router = require('express').Router();
+
+//import rutas
+var usersRouter = require('./user');
+var productRouter = require('./product');
+var orderRouter = require('./order');
+var categoryRouter = require('./category');
+var reviewRouter = require('./review');
+
+
+
+// uso routes
+router.use('/product', productRouter);
+router.use('/order', orderRouter);
+router.use('/category', categoryRouter);
+router.use('/review', reviewRouter);
+router.use('/user', usersRouter);
+
+
+
+
 module.exports = router;
-
-
-// import routes
-router.use('/product', require('./product'));
-router.use('/order', require('./order'));
-router.use('/category', require('./category'));
-router.use('/review', require('./review'));
-router.use('/user', require('./user'));
-
-
-
-
-// Make sure this is after all of
-// the registered routes!
-router.use(function (req, res) {
-  res.status(404).end();
-});
-

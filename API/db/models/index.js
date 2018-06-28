@@ -30,4 +30,4 @@ Product.create({
         })
 
 
-module.exports = {};
+module.exports = {Product, Category, User, Order, Review};

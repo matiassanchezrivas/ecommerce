@@ -1,9 +1,15 @@
+const Sequelize = require('sequelize');
 const express = require('express');
-const router = new express.Router();
+var router = express.Router();
 
 // modelos que voy a usar 
-// const models = require('../../db/models');
-// const Artist = models.Artist;
+var User = require('../db/models');
+
+
+router.get('/', function(req, res, next) {
+    res.send('hola desde user');
+});
+
 
 module.exports = router;
 
