@@ -20,9 +20,9 @@ const User = db.define('User', {
   },
   email: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
         isEmail: true,
-        notNull: true,
     }
   },
 })
