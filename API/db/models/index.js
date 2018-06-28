@@ -1,15 +1,33 @@
 const Product = require('./Product');
-// const Category = require('./Category');
-// const User = require('./User');
-// const Order = require('./Order');
-// const Review = require('./Review');
+const Category = require('./Category');
+const User = require('./User');
+const Order = require('./Order');
+const Review = require('./Review');
 
-// const p = Product.findOrCreate({
-//     where: {
-//         nombre: 'televisor',
-//         descripcion: '43 pulgadas / byn',
-//         imagenes: ['https://http2.mlstatic.com/televisor-led-hd-samsung-32-serie-4000-D_NQ_NP_154411-MLA20551008540_012016-F.jpg', 'https://images.philips.com/is/image/PhilipsConsumer/32PFL4007D_77-IMS-es_AR?wid=494&hei=435&$pnglarge$2']
-//     }
-// })
+Product.hasMany(Category, {as: 'categories'})
+Product.hasMany(Review, {as: 'reviews'})
+User.hasMany(Order, {as: 'orders'})
+Order.hasMany(Product, {as: 'products'})
+Review.belongsTo(User)
+
+
+Product.create({
+        id: 1,
+        name: 'Chair',
+        description: 'descrpicon',
+        images: ['1', '2'],
+        stock: 12,
+        available: true,
+        categories: [
+            { name: 'Alpha' },
+            { name: 'Beta' }
+        ]
+    }, {
+            include: ['categories'],
+
+        }).then(function(value) {
+            console.log(value.categories)
+        })
+
 
 module.exports = {};
