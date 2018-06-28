@@ -1,13 +1,29 @@
 const Sequelize = require('sequelize');
 const express = require('express');
-var router = express.Router();
+const router = express.Router();
 
 // modelos que voy a usar 
-var Order = require('../db/models');
+const models = require('../db/models');
+const Order = models.Order
 
 
 router.get('/', function(req, res, next) {
     res.send('hola desde Order');
+});
+
+router.post('/', function (req, res) {
+    console.log('BODY', req.body);
+    
+    Order.findOrCreate({
+        where: {
+            status: req.body.status,
+            total: req.body.total,
+            fecha: req.body.fecha
+        },
+    }).then((data) => {
+        console.log('DATA', data)
+        res.status(200).send(data);
+    })
 });
 
 
