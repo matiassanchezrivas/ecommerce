@@ -4,30 +4,15 @@ const User = require('./User');
 const Order = require('./Order');
 const Review = require('./Review');
 
-Product.hasMany(Category, {as: 'categories'})
-Product.hasMany(Review, {as: 'reviews'})
-User.hasMany(Order, {as: 'orders'})
-Order.hasMany(Product, {as: 'products'})
-Review.belongsTo(User)
+Review.belongsTo(Product, { as: 'product' })
+Review.belongsTo(User, { as: 'User' })
 
+Order.belongsTo(User, { as: 'owner' })
 
-Product.create({
-        id: 1,
-        name: 'Chair',
-        description: 'descrpicon',
-        images: ['1', '2'],
-        stock: 12,
-        available: true,
-        categories: [
-            { name: 'Alpha' },
-            { name: 'Beta' }
-        ]
-    }, {
-            include: ['categories'],
+Category.belongsToMany(Product, { as: 'product', through: 'category_products' })
+Product.belongsToMany(Category, { as: 'category', through: 'category_products' })
 
-        }).then(function(value) {
-            console.log(value.categories)
-        })
+Product.belongsToMany(Order, { as: 'order', through: 'order_products' })
+Order.belongsToMany(Product, { as: 'product', through: 'order_products' })
 
-
-module.exports = {Product, Category, User, Order, Review};
+module.exports = { Product, Category, User, Order, Review };
