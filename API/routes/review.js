@@ -6,13 +6,13 @@ const router = express.Router();
 const models = require('../db/models');
 const Review = models.Review
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.send('hola desde review');
 });
 
 router.post('/', function (req, res) {
     console.log('BODY', req.body);
-    
+
     Review.findOrCreate({
         where: {
             review: req.body.review,

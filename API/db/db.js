@@ -10,5 +10,5 @@ db
         console.log(Chalk.green('Conexión con la base de datos correcta'));
     })
     .catch(err => {
-        console.error(Chalk.red('No se pudo conectar a la base de datos', err));
+        console.error(Chalk.red('No se pudo conectar a la base de datos'));
     });
