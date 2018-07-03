@@ -24,6 +24,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  Appbar: {
+    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+  }
 };
 
 class MenuAppBar extends React.Component {
@@ -51,21 +54,18 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <FormGroup>
+        {/* <FormGroup>
           <FormControlLabel
             control={
               <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
             }
             label={auth ? 'Logout' : 'Login'}
           />
-        </FormGroup>
-        <AppBar position="static">
+        </FormGroup> */}
+        <AppBar className={classes.Appbar} position="static">
           <Toolbar>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon />
-            </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
-              Title
+              Ecommerce
             </Typography>
             {auth && (
               <div>
