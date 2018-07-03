@@ -8,6 +8,8 @@ router.get('/login', (req, res) => {
 });
 
 router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/')
 
 });
 
@@ -18,7 +20,8 @@ router.get('/google', passport.authenticate('google', {
 
 //Obtengo los datos de google
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    res.send('sdfsdf')
+    //console.log(req.user);
+    res.redirect('/profile')
 })
 
 module.exports = router;

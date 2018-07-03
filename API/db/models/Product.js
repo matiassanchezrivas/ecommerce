@@ -25,6 +25,10 @@ const Product = db.define('product', {
   available: {
     type: Sequelize.BOOLEAN,
     allowNull: false
+  },
+  price: {
+    type: Sequelize.FLOAT,
+    allowNull: false
   }
 })
 

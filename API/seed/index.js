@@ -30,14 +30,17 @@ module.exports = () => {
         description: 'Salomon skis',
         images: ['url1', 'url2'],
         stock: 1,
-        available: true
+        available: true,
+        price: 50,
+
     }
     products[1] = {
         name: 'Snowboard burton',
         description: 'Snowboard clash v-rocker 155',
         images: ['url1', 'url2'],
         stock: 1,
-        available: true
+        available: true,
+        price: 200,
     }
     //REVIEWS
     var reviews = [];

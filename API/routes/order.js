@@ -6,14 +6,13 @@ const router = express.Router();
 const models = require('../db/models');
 const Order = models.Order
 
-
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
     res.send('hola desde Order');
 });
 
 router.post('/', function (req, res) {
     console.log('BODY', req.body);
-    
+
     Order.findOrCreate({
         where: {
             status: req.body.status,
