@@ -12,6 +12,7 @@ module.exports = () => {
         type: 'admin',
         status: 'active',
         name: 'matias',
+        username: 'matiassr',
         password: 'todobien',
         email: 'matiassanchezrivas@hotmail.com',
     }
@@ -20,6 +21,7 @@ module.exports = () => {
         status: 'active',
         name: 'nico',
         password: 'todobien2',
+        username: 'nicobernal',
         email: 'nicobernal@gmail.com',
     }
 

@@ -1,23 +1,25 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys.js')
-const User = require('../db/models/User');
 const Chalk = require('chalk');
+const LocalStrategy = require('passport-local').Strategy;
+
+// modelos que voy a usar 
+const models = require('../db/models');
+const User = models.User;
 
 
 //Serializando user
 passport.serializeUser((user, done) => {
     console.log(Chalk.magenta('Serializo user'))
     console.log(Chalk.magenta('user ID: ', user.dataValues.id))
-    console.log(user)
-
     done(null, user.dataValues.id);
 })
 
 //Deserializando
 passport.deserializeUser((id, done) => {
     console.log(Chalk.magenta('Deserializo user'));
-
+    console.log(Chalk.magenta('user ID: ', id));
     User.findById(id).then((user) => {
         console.log(Chalk.magenta('Encuentro user'));
         done(null, user);
@@ -61,7 +63,50 @@ passport.use(new GoogleStrategy({
 }))
 
 
-//accessToken: la recibimos de google
-//refreshToken: refrescar cuando se expira la access
-//profile: profile info
-//done: function when done 
+passport.use(new LocalStrategy(
+    {
+        usernameField: 'email',
+        passwordField: 'password'
+    },
+    function verify(email, password, done) {
+        console.log(Chalk.red('Entra a la local strategy con ', email, password));
+        User.findOne({ where: { email: email } }).then(
+            (currentUser) => {
+                console.log(Chalk.red('Encontre al user en local', currentUser))
+                if (!currentUser) return done(null, false);
+                if (password !== currentUser.password) {
+                    console.log(Chalk.red('La password no coincide', password, currentUser.password))
+                    return done(null, false)
+                } else {
+                    done(null, currentUser)
+                }
+            }
+        )
+        //(email, function (err, user) {
+        //     if (err) return done(err);
+        //     if (!user) return done(null, false);
+        //     passwordHash.compare(password, user.password, function (err, res) {
+        //         if (err) return done(err);
+        //         if (!res) return done(null, false);
+        //         done(null, user);
+        //     });
+        // });
+    }
+));
+
+// passport.use(new LocalStrategy(
+
+//     function (username, password, done) {
+//         console.log(Chalk.red('Entra a la local strategy con ', username, password));
+//         User.findOne({ username: username }, function (err, user) {
+//             if (err) { return done(err); }
+//             if (!user) {
+//                 return done(null, false, { message: 'Incorrect username.' });
+//             }
+//             if (!user.validPassword(password)) {
+//                 return done(null, false, { message: 'Incorrect password.' });
+//             }
+//             return done(null, user);
+//         });
+//     }
+// ));
