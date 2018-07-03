@@ -95,7 +95,7 @@ module.exports = () => {
 
     promiseSeed.then(() => {
         var pProduct = Product.findOne({ where: { name: 'Snowboard burton' } });
-        var pUser = User.findOne({ where: users[1] });
+        var pUser = User.findOne({ where: { username: 'nicobernal' } });
         //CREO REVIEW
         var pUserAndProduct = Promise.all([pUser, pProduct])
             .then((data) => {

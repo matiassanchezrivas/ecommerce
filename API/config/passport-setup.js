@@ -3,6 +3,7 @@ const GoogleStrategy = require('passport-google-oauth20');
 const keys = require('./keys.js')
 const Chalk = require('chalk');
 const LocalStrategy = require('passport-local').Strategy;
+const { validate } = require('../config/passwords.js')
 
 // modelos que voy a usar 
 const models = require('../db/models');
@@ -74,7 +75,7 @@ passport.use(new LocalStrategy(
             (currentUser) => {
                 console.log(Chalk.red('Encontre al user en local', currentUser))
                 if (!currentUser) return done(null, false);
-                if (password !== currentUser.password) {
+                if (!validate(currentUser.password, password)) {
                     console.log(Chalk.red('La password no coincide', password, currentUser.password))
                     return done(null, false)
                 } else {
