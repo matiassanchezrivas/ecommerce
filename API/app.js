@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const routes = require('./routes')
 const app = express();
 const seed = require('./seed')
+const passportSetup = require('./config/passport-setup');
 
 // express config
 app.use(express.static('./public'));

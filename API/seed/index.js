@@ -13,7 +13,7 @@ module.exports = () => {
         status: 'active',
         name: 'matias',
         password: 'todobien',
-        email: 'matiassanchezrivas@gmail.com',
+        email: 'matiassanchezrivas@hotmail.com',
     }
     users[1] = {
         type: 'regular',

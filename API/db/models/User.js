@@ -16,15 +16,17 @@ const User = db.define('User', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-        isEmail: true,
+      isEmail: true,
     }
   },
+  googleID: {
+    type: Sequelize.STRING
+  }
 })
 
 
