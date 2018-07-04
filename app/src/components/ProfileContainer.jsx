@@ -5,6 +5,7 @@ import Orders from './Orders';
 
 var fakeUser = [
     {
+        id: 1,
         name: 'Nico',
         password: 'TodoBien1234',
         email: 'nico@pastaflora5.la',
@@ -12,6 +13,7 @@ var fakeUser = [
         status: 'active'
     },
     {
+        id: 2,
         name: 'Mati',
         password: 'TodoBien4567',
         email: 'mati@pastaflora5.la',
@@ -19,6 +21,7 @@ var fakeUser = [
         status: 'active'
     },
     {
+        id: 3,
         name: 'Juan',
         password: 'TodoBien8910',
         email: 'juan@pastaflora5.la',
@@ -26,6 +29,7 @@ var fakeUser = [
         status: 'active'
     },
     {
+        id: 4,
         name: 'Ariel',
         password: 'TodoBien1112',
         email: 'ariel@pastaflora5.la',
@@ -45,9 +49,7 @@ class ProfileContainer extends React.Component {
             orders: fakeOrder
         }
     }
-    componentDidMount() {
-        console.log('this.state.user en el container ', this.state.user)
-    }
+
     render() {
         return (
             <div>

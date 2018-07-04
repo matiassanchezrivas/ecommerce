@@ -6,6 +6,7 @@ const router = express.Router();
 const models = require('../db/models');
 const Order = models.Order
 
+<<<<<<< HEAD
 
 router.get('/', function(req, res, next) {
     //res.send('hola desde Order');
@@ -14,11 +15,15 @@ router.get('/', function(req, res, next) {
             res.json(ordenes)
         }
     )
+=======
+router.get('/', function (req, res, next) {
+    res.send('hola desde Order');
+>>>>>>> 3969fbcae9d19bd714ca4ef4c35d943bbb14f33f
 });
 
 router.post('/', function (req, res) {
     console.log('BODY', req.body);
-    
+
     Order.findOrCreate({
         where: {
             status: req.body.status,
