@@ -8,7 +8,12 @@ const Order = models.Order
 
 
 router.get('/', function(req, res, next) {
-    res.send('hola desde Order');
+    //res.send('hola desde Order');
+    Order.findAll().then(
+        (ordenes) =>{
+            res.json(ordenes)
+        }
+    )
 });
 
 router.post('/', function (req, res) {
