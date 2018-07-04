@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-
 import './Main.css';
-import Button from '@material-ui/core/Button';
-import MenuAppBar from './MenuAppBar'
-import Cart from './Cart'
+import MenuAppBar from './MenuAppBar';
+import ProfileContainer from './ProfileContainer';
 
 
 class Main extends Component {
@@ -11,7 +9,7 @@ class Main extends Component {
     return (
       <div className="App">
         <MenuAppBar />
-        <Cart/>
+        <ProfileContainer />
       </div>
     );
   }

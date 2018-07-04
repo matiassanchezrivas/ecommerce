@@ -6,8 +6,14 @@ const router = express.Router();
 const models = require('../db/models');
 const Order = models.Order
 
-router.get('/', function (req, res, next) {
-    res.send('hola desde Order');
+
+router.get('/', function(req, res, next) {
+    //res.send('hola desde Order');
+    Order.findAll().then(
+        (ordenes) =>{
+            res.json(ordenes)
+        }
+    )
 });
 
 router.post('/', function (req, res) {
