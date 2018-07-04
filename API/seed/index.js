@@ -12,7 +12,6 @@ module.exports = () => {
         type: 'admin',
         status: 'active',
         name: 'matias',
-        username: 'matiassr',
         password: 'todobien',
         email: 'matiassanchezrivas@hotmail.com',
     }
@@ -21,7 +20,6 @@ module.exports = () => {
         status: 'active',
         name: 'nico',
         password: 'todobien2',
-        username: 'nicobernal',
         email: 'nicobernal@gmail.com',
     }
 
@@ -95,7 +93,7 @@ module.exports = () => {
 
     promiseSeed.then(() => {
         var pProduct = Product.findOne({ where: { name: 'Snowboard burton' } });
-        var pUser = User.findOne({ where: { username: 'nicobernal' } });
+        var pUser = User.findOne({ where: { email: 'matiassanchezrivas@gmail.com' } });
         //CREO REVIEW
         var pUserAndProduct = Promise.all([pUser, pProduct])
             .then((data) => {
