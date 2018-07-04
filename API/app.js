@@ -5,6 +5,19 @@ const bodyParser = require('body-parser')
 const routes = require('./routes')
 const app = express();
 const seed = require('./seed')
+const passportSetup = require('./config/passport-setup');
+const cookieSession = require('cookie-session');
+const keys = require('./config/keys.js')
+const passport = require('passport')
+
+//passport cookies
+app.use(cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [keys.session.cookieKey]
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // express config
 app.use(express.static('./public'));

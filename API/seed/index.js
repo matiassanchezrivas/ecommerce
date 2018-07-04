@@ -12,14 +12,16 @@ module.exports = () => {
         type: 'admin',
         status: 'active',
         name: 'matias',
+        username: 'matiassr',
         password: 'todobien',
-        email: 'matiassanchezrivas@gmail.com',
+        email: 'matiassanchezrivas@hotmail.com',
     }
     users[1] = {
         type: 'regular',
         status: 'active',
         name: 'nico',
         password: 'todobien2',
+        username: 'nicobernal',
         email: 'nicobernal@gmail.com',
     }
 
@@ -30,14 +32,17 @@ module.exports = () => {
         description: 'Salomon skis',
         images: ['url1', 'url2'],
         stock: 1,
-        available: true
+        available: true,
+        price: 50,
+
     }
     products[1] = {
         name: 'Snowboard burton',
         description: 'Snowboard clash v-rocker 155',
         images: ['url1', 'url2'],
         stock: 1,
-        available: true
+        available: true,
+        price: 200,
     }
     //REVIEWS
     var reviews = [];
@@ -90,7 +95,7 @@ module.exports = () => {
 
     promiseSeed.then(() => {
         var pProduct = Product.findOne({ where: { name: 'Snowboard burton' } });
-        var pUser = User.findOne({ where: users[1] });
+        var pUser = User.findOne({ where: { username: 'nicobernal' } });
         //CREO REVIEW
         var pUserAndProduct = Promise.all([pUser, pProduct])
             .then((data) => {
