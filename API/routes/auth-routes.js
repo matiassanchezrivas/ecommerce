@@ -32,7 +32,6 @@ router.post('/register', function (req, res, next) {
                     type: 'regular',
                     status: 'active',
                     name: req.body.name,
-                    username: req.body.username,
                     password: req.body.password,
                     email: req.body.email,
                     googleID: null
