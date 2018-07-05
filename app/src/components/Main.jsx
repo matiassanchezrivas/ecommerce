@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Main.css';
 import MenuAppBar from './MenuAppBar';
-import ProfileContainer from './ProfileContainer';
+import ProfileContainer from '../Containers/ProfileContainer';
 
 
 class Main extends Component {
