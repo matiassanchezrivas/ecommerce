@@ -7,7 +7,10 @@ const Product = models.Product
 
 
 router.get('/', function (req, res, next) {
-    res.send('hola desde productos');
+    Product.findAll()
+    .then(function(data){
+        res.send(data)
+    })
 });
 
 router.post('/', function (req, res) {

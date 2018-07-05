@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
 import Cart from './Cart'
 import Login from '../Containers/Login'
+import MenuProduct from './MenuProduct'
 
 
 class Main extends Component {
@@ -14,6 +15,7 @@ class Main extends Component {
         <MenuAppBar />
         <Switch>
           <Route exact path="/login" component={Login} />
+          <Route exact path="/product" component={MenuProduct} />
           <Redirect from="/" to="/login" />
         </Switch>
       </div>
