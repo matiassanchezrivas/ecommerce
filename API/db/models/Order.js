@@ -13,9 +13,11 @@ const Order = db.define('order', {
     total: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    fecha: {
+        type: Sequelize.DATE,
+        defaultValue: 0
     }
-
-
 })
 
 
