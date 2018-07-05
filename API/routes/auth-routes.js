@@ -44,7 +44,8 @@ router.post('/register', function (req, res, next) {
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    res.json({ hola: 'hola' });
+    console.log('sadas')
+    res.send('holis');
 });
 
 //auth with google

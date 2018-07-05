@@ -6,17 +6,9 @@ const router = express.Router();
 const models = require('../db/models');
 const Order = models.Order
 
-<<<<<<< HEAD
 router.get('/', function (req, res, next) {
     Order.findAll().then(
         (ordenes) => {
-=======
-
-router.get('/', function(req, res, next) {
-    //res.send('hola desde Order');
-    Order.findAll().then(
-        (ordenes) =>{
->>>>>>> fc333ba243dd1f786f84ab25cf5029fdc8403c7e
             res.json(ordenes)
         }
     )

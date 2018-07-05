@@ -83,15 +83,6 @@ passport.use(new LocalStrategy(
                 }
             }
         )
-        //(email, function (err, user) {
-        //     if (err) return done(err);
-        //     if (!user) return done(null, false);
-        //     passwordHash.compare(password, user.password, function (err, res) {
-        //         if (err) return done(err);
-        //         if (!res) return done(null, false);
-        //         done(null, user);
-        //     });
-        // });
     }
 ));
 

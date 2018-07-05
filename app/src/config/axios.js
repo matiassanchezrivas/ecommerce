@@ -1,7 +1,7 @@
 var axios = require('axios');
 
 var axiosInstance = axios.create({
-    baseURL: 'https://localhost:3002/',
+    baseURL: 'http://localhost:3002/',
     /* other custom settings */
 });
 

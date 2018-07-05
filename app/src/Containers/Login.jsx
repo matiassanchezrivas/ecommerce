@@ -9,8 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Icon from '@material-ui/core/Icon';
 import PropTypes from 'prop-types';
 import axios from '../config/axios.js'
+import { connect } from 'react-redux'
 
-const Path = require('path');
 
 const styles = theme => ({
     root: {
@@ -46,21 +46,20 @@ class Login extends Component {
 
     handleLocalLogin(event) {
         event.preventDefault();
-        console.log('entra al handle login')
-        // axios.post('/auth/login', { mail: this.state.email, password: this.state.password })
-        //     .then(
-        //         (response) => { console.log(response) }
-        //     )
-        //     .catch((err) => {
-        //         console.log(err)
-        //     }
-        //     )
+        console.log('entra al handle login');
 
-        axios.post('/auth/login', { mail: 'sdasda', password: 'asdasd' })
+        axios.post('/auth/login', {
+            email: "matiassanchezrivas@hotmail.com",
+            password: "todobien"
+        })
+            .then(res => res.data)
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
 
-        axios.get('/order').then(
-            (response) => { console.log(response) }
-        )
 
     }
 
@@ -118,3 +117,59 @@ class Login extends Component {
 }
 
 export default withStyles(styles)(Login);
+
+// import React from 'react';
+// import Playlist from '../components/Playlist';
+// import { fetchPlaylist, addSong } from '../action-creators/playlists';
+// import { start } from '../action-creators/player';
+// import { fetchSongs } from '../action-creators/songs';
+// import { connect } from 'react-redux'
+
+// class PlaylistContainer extends React.Component {
+
+//   componentDidMount() {
+//     this.props.fetchPlaylist(this.props.match.params.id);
+//     this.props.fetchSongs();
+//     console.log('PROPS PLAYLIST CONTAINER', this.props)
+//   }
+
+//   componentWillReceiveProps(nextProps) {
+//     if (nextProps.match.params.id !== this.props.match.params.id) {
+//       this.props.fetchPlaylist(nextProps.match.params.id);
+//     }
+//   }
+
+//   render() {
+//     return (
+//       <Playlist
+//         playlist={this.props.playlist}
+//         start={this.props.start}
+//         currentSong={this.props.currentSong}
+//         addSong={this.props.addSong}
+//         songs={this.props.songs}
+//       />
+//     );
+//   }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     start: (song, list) => dispatch(start(song, list)),
+//     fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
+//     fetchSongs: () => dispatch(fetchSongs()),
+//     addSong: (song) => dispatch(addSong(song))
+
+//   };
+// }
+
+// const mapStateToProps = function (state) {
+//   console.log('STATE DEL PLAYLISTCONTAINER', state)
+//   return {
+//     currentSong: state.player.currentSong,
+//     playlist: state.playlists.selected,
+//     songs: state.songs
+//   };
+// }
+
+// export default connect(mapStateToProps, mapDispatchToProps)(PlaylistContainer)
+
