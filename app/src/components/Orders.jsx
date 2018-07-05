@@ -82,6 +82,8 @@ class TablePaginationActions extends React.Component {
     }
 }
 
+// Investigar que es esto
+
 TablePaginationActions.propTypes = {
     classes: PropTypes.object.isRequired,
     count: PropTypes.number.isRequired,
