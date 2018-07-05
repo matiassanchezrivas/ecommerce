@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 
 import './Main.css';
-import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
-import Cart from './Cart'
+import CartContainer from '../containers/CartContainer'
 
 
 class Main extends Component {
@@ -11,7 +10,7 @@ class Main extends Component {
     return (
       <div className="App">
         <MenuAppBar />
-        <Cart/>
+        <CartContainer />
       </div>
     );
   }

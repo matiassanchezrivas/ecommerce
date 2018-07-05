@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
-import color from '@material-ui/core/colors/teal';
-import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root:{
@@ -92,13 +89,12 @@ const data = [
 ];
 
 function Cart(props) {
-  const { classes } = props;
-    
+  const { classes, items, total, eliminar } = props;
   return (
     <div className={classes.root}>
         <div className={classes.itemsList}>
                
-          {data.map(n => {
+          {items.map((n, index) => {
             return (
                 <div key={n.id} className={classes.product}>
     
@@ -108,7 +104,7 @@ function Cart(props) {
 
                     <div className={classes.title}>
                         <h4>{n.title}</h4>
-                        <Button className={classes.button}>
+                        <Button onClick={() => eliminar(index)} className={classes.button}>
                         eliminar
                         </Button>
                     </div>
@@ -135,7 +131,7 @@ function Cart(props) {
         </div>
         <div className={classes.buyBox}>
             <div className={classes.total}>
-                <h3>Total: $540</h3>
+                <h3>{total}</h3>
             </div>
             <div className={classes.checkout}>
                 <Button className={classes.button}>
