@@ -5,6 +5,7 @@ const router = express.Router();
 // modelos que voy a usar 
 const models = require('../db/models');
 const Order = models.Order
+const Product = models.Product
 
 router.get('/', function (req, res, next) {
     Order.findAll().then(
@@ -13,6 +14,22 @@ router.get('/', function (req, res, next) {
         }
     )
 });
+
+router.get('/:userId', function(req, res, next){
+    Order.findAll({
+        where: {ownerId: req.params.userId}, 
+        include: [
+            {
+                model: Product,
+                as: "product"
+            }
+        ]
+    }).then(
+        (ordenes) =>{
+            res.json(ordenes)
+        }
+    )
+})
 
 router.post('/', function (req, res) {
     console.log('BODY', req.body);

@@ -1,6 +1,6 @@
 import React from 'react';
-import Profile from './Profile';
-import Orders from './Orders';
+import Profile from '../components/Profile';
+import Orders from '../components/Orders';
 
 
 var fakeUser = [
