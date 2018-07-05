@@ -7,11 +7,9 @@ const models = require('../db/models');
 const Order = models.Order
 const Product = models.Product
 
-
-router.get('/', function(req, res, next) {
-    //res.send('hola desde Order');
+router.get('/', function (req, res, next) {
     Order.findAll().then(
-        (ordenes) =>{
+        (ordenes) => {
             res.json(ordenes)
         }
     )
