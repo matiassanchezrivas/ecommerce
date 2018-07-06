@@ -5,7 +5,6 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "createdb ecommerce",
     "start": "nodemon app.js"
   },
   "author": "",
@@ -13,7 +12,12 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
+    "cookie-session": "^2.0.0-beta.3",
+    "crypto-js": "^3.1.9-1",
     "express": "^4.16.3",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",

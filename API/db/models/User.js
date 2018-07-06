@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('../db.js')
+const { hash } = require('../../config/passwords.js')
 
 const User = db.define('User', {
   type: {
@@ -16,16 +17,30 @@ const User = db.define('User', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
   },
   email: {
     type: Sequelize.STRING,
     allowNull: false,
     validate: {
-        isEmail: true,
+      isEmail: true,
     }
   },
-})
+  googleID: {
+    type: Sequelize.STRING
+  }
+}, {
+    hooks: {
+      beforeValidate: (user, options) => {
+        user.password = hash(user.password);
+      }
+    }
+  });
+
+// User.hook('beforeValidate', (user, options) => {
+
+//   return user.password = hash(user.password);
+
+// });
 
 
 

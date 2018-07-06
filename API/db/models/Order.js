@@ -4,7 +4,7 @@ const Product = require('./Product')
 
 const Order = db.define('order', {
     status: {
-        type: Sequelize.ENUM('creado', 'procesando', 'cancelado', 'completado'),
+        type: Sequelize.ENUM('carrito', 'creado', 'procesando', 'cancelado', 'completado'),
         allowNull: false
     },
     date: {
@@ -13,9 +13,11 @@ const Order = db.define('order', {
     total: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    fecha: {
+        type: Sequelize.DATE,
+        defaultValue: 0
     }
-
-
 })
 
 
