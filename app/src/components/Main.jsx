@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
 import './Main.css';
 
-import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
-import Cart from './Cart'
 import Login from '../Containers/Login'
-
+import CartContainer from '../Containers/CartContainer'
 import MenuProduct from './MenuProduct'
 
-import ProfileContainer from '../Containers/ProfileContainer';
 
 class Main extends Component {
   render() {
@@ -17,6 +14,7 @@ class Main extends Component {
       <div className="App">
         <MenuAppBar />
         <Switch>
+          <Route exact path="/cart" component={CartContainer} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/product" component={MenuProduct} />
           <Redirect from="/" to="/login" />
