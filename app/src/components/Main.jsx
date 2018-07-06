@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Main.css';
 import MenuAppBar from './MenuAppBar'
-import CartContainer from '../containers/CartContainer'
+import CartContainer from '../Containers/CartContainer'
 
 
 class Main extends Component {

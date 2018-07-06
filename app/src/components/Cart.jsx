@@ -3,30 +3,81 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Icon from "@material-ui/icons";
+import ShoppingCart from '@material-ui/icons/ShoppingCart'
 
 const styles = theme => ({
     root:{
-        background: '#f6f7fb',
         padding: '2rem',
         display: 'flex',
         flexDirection: 'row',
         flex: 1, 
+        minHeight: '100%', 
     },
     itemsList:{
         flex: 0.7,
         paddingRight: '1rem',
     },
     buyBox:{
-        background: 'white',
+        borderRadius: '5px 5px 0 0',
         flex: 0.3,
     },
+    buyBoxBody:{
+        display: 'grid',
+        background: 'white',
+    },
+    buyBoxHeader:{
+        minHeight: '3rem',
+        color: 'white' ,
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+    },
+    buyBoxButton1: {
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+        fontSize: '0.81rem',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 15,
+        margin: '0.5rem',
+        marginBottom: '3rem',
+        padding: '0 20px',
+        boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    },
+    buyBoxButton2: {
+        fontSize: '0.81rem',
+        background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+        borderRadius: 3,
+        border: 0,
+        color: 'white',
+        height: 15,
+        margin: '0.5rem',
+        marginBottom: '3rem',
+        padding: '0 20px',
+        boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+    },
+    punch:{
+        display: 'inline-block',
+        padding: '1rem',
+        margin: 'auto',
+        fontSize: 'small',
+        fontWeight: 100,
+    },
+    icon:{
+        color: '98d1fe',
+        position: 'relative',
+        top: '0.5rem',
+    },
     total:{
-        color: 'grey' ,
+        margin: '3rem 3rem 2rem 3rem',
+        borderTop: '1px solid #DDD',
+        borderBottom: '1px solid #DDD',
+        color: '#727272' ,
         flex: 0.8,
     },
     checkout:{
         flex: 0.2,
     },
+    
     button: {
         fontSize: '0.81rem',
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
@@ -34,6 +85,7 @@ const styles = theme => ({
         border: 0,
         color: 'white',
         height: 15,
+        margin: '0.5rem',
         padding: '0 20px',
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
     },
@@ -75,21 +127,8 @@ const styles = theme => ({
   
 });
 
-let id = 0;
-function createData(img, title, price, cantidad) {
-  id += 1;
-  return { id, img, title, price, cantidad };
-}
-
-const data = [
-  createData('https://images.evo.com/imgp/700/122201/538568/dc-focus-snowboard-2018-145.jpg', 'DC Focus Snowboard 2017', 150 , 1),
-  createData('https://cdn.luxedb.com/wp-content/uploads/2011/11/Star-Wars-Inspired-Products-from-Burton-Snowboards-4.jpg', 'DC Focus Snowboard 2017, DC Focus Snowboard 2017', 200 , 1),
-  createData('https://i.pinimg.com/originals/d4/ef/78/d4ef78ebe0e01369d9e162afcf88b16f.jpg', 'DC Focus Snowboard 2017', 100 , 2),
-  createData('http://img0.biker-boarder.de/detail_oxp1/atomic17_an5105326_savor_otg_photo_black_photochromic.jpg', 'DC Focus Snowboard 2017', 113 , 1),
-];
-
 function Cart(props) {
-  const { classes, items, total, eliminar } = props;
+  const { classes, items, total, eliminar, cantidad, vaciar } = props;
   return (
     <div className={classes.root}>
         <div className={classes.itemsList}>
@@ -99,7 +138,7 @@ function Cart(props) {
                 <div key={n.id} className={classes.product}>
     
                     <div className={classes.imagen}>
-                        <img src={n.img} className={classes.ImgProd}/>
+                        <img src={n.img} alt={n.title} className={classes.ImgProd}/>
                     </div>
 
                     <div className={classes.title}>
@@ -117,6 +156,8 @@ function Cart(props) {
                             <TextField
                             label="Cantidad"
                             type="number"
+                            onChange={(e) => cantidad(e, index)}
+                            defaultValue={n.cantidad}
                             className={classes.textField}
                             InputLabelProps={{
                                 shrink: true,
@@ -130,16 +171,25 @@ function Cart(props) {
             })}
         </div>
         <div className={classes.buyBox}>
-            <div className={classes.total}>
-                <h3>{total}</h3>
-            </div>
-            <div className={classes.checkout}>
-                <Button className={classes.button}>
-                        checkout
-                </Button>
-            </div>
-        </div>
 
+            <div className={classes.buyBoxHeader}>
+                <ShoppingCart className={classes.icon}/><p className={classes.punch}>{' Completa tu orden con un click'}</p>
+            </div>
+            <div className={classes.buyBoxBody}>
+                <div className={classes.total}>
+                    <h3>{'Total: $ ' + total}</h3>
+                </div>
+                <div className={classes.checkout}>
+                    <Button className={classes.buyBoxButton2} onClick={vaciar}>
+                            Vaciar
+                    </Button>
+                    <Button className={classes.buyBoxButton1}>
+                            checkout
+                    </Button>
+                </div>
+            </div>
+
+        </div>
     </div>
   );
 }
