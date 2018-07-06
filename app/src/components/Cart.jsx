@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Icon from "@material-ui/icons";
 import ShoppingCart from '@material-ui/icons/ShoppingCart'
 
 const styles = theme => ({
