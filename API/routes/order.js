@@ -8,6 +8,8 @@ const Order = models.Order
 const Product = models.Product
 
 router.get('/', function (req, res, next) {
+    console.log('req.user?', req.user)
+    console.log('esto funbciona=? ', req.isAuthenticated())
     Order.findAll().then(
         (ordenes) => {
             res.json(ordenes)
@@ -15,9 +17,9 @@ router.get('/', function (req, res, next) {
     )
 });
 
-router.get('/:userId', function(req, res, next){
+router.get('/:userId', function (req, res, next) {
     Order.findAll({
-        where: {ownerId: req.params.userId}, 
+        where: { ownerId: req.params.userId },
         include: [
             {
                 model: Product,
@@ -25,7 +27,7 @@ router.get('/:userId', function(req, res, next){
             }
         ]
     }).then(
-        (ordenes) =>{
+        (ordenes) => {
             res.json(ordenes)
         }
     )

@@ -5,9 +5,16 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import axios from '../config/axios'
+import { connect } from 'react-redux'
+import { setCurrentUser } from '../action-creators/user'
 
 const styles = {
   root: {
@@ -26,10 +33,17 @@ const styles = {
 };
 
 class MenuAppBar extends React.Component {
-  state = {
-    auth: true,
-    anchorEl: null,
-  };
+  constructor() {
+    super()
+    this.state = {
+      auth: true,
+      anchorEl: null,
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this)
+  }
 
   handleChange = (event, checked) => {
     this.setState({ auth: checked });
@@ -41,6 +55,15 @@ class MenuAppBar extends React.Component {
 
   handleClose = () => {
     this.setState({ anchorEl: null });
+  };
+
+  handleLogOut = () => {
+    axios.get('/auth/logout')
+      .then(res => res.data)
+      .then((res) => {
+        this.props.setCurrentUser({});
+        this.props.history.push('/login')
+      })
   };
 
   render() {
@@ -87,8 +110,9 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Mis compras</MenuItem>
+                  <MenuItem onClick={this.handleLogOut}>Cerrar sesión</MenuItem>
                 </Menu>
               </div>
             )}
@@ -103,4 +127,22 @@ MenuAppBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(MenuAppBar);
+function mapDispatchToProps(dispatch) {
+  return {
+    // start: (song, list) => dispatch(start(song, list)),
+    // fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
+    // fetchSongs: () => dispatch(fetchSongs()),
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  };
+}
+
+const mapStateToProps = function (state) {
+  //console.log('STATE DEL PLAYLISTCONTAINER', state)
+  return {
+    currentUser: state.users.currentUser,
+    // playlist: state.playlists.selected,
+    // songs: state.songs
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MenuAppBar))

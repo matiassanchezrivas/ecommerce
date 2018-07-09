@@ -10,7 +10,7 @@ import Icon from '@material-ui/core/Icon';
 import PropTypes from 'prop-types';
 import axios from '../config/axios.js'
 import { connect } from 'react-redux'
-
+import { setCurrentUser } from '../action-creators/user'
 
 const styles = theme => ({
     root: {
@@ -31,47 +31,62 @@ const styles = theme => ({
     }
 });
 
-
-
 class Login extends Component {
     constructor() {
         super()
         this.state = {
             email: '',
-            password: ''
+            password: '',
+            errorPass: false,
         };
         this.handleLocalLogin = this.handleLocalLogin.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     }
 
     handleLocalLogin(event) {
         event.preventDefault();
-        console.log('entra al handle login');
+        console.log('entra al handle login con ' + this.state.password + ' ' + this.state.email);
 
         axios.post('/auth/login', {
-            email: "matiassanchezrivas@hotmail.com",
-            password: "todobien"
+            email: this.state.email,
+            password: this.state.password
         })
             .then(res => res.data)
-            .then((res) => {
-                console.log(res)
+            .then((user) => {
+                console.log('respuesta del login', user)
+                this.props.setCurrentUser(user)
+                console.log(this.props)
+                this.props.history.push('/profile')
+                // window.location.replace("/profile");
             })
             .catch((err) => {
                 console.log(err)
+                if (err.response.status) {
+                    this.setState({ errorPass: true });
+                }
+
             })
+    }
 
-
+    handleGoogleLogin(event) {
+        axios.get('/auth/google')
+            .then(response => console.log('response', response))
+            .catch(err => console.log('err axios', err))
     }
 
     handleChange(evt) {
+        console.log(evt.target.id)
         const value = evt.target.value;
-        if (evt.target.id == 'email') {
+        if (evt.target.id === 'email') {
             this.setState({
                 email: value,
+                errorPass: false
             });
-        } else if (evt.target.id == 'pass') {
+        } else if (evt.target.id === 'password') {
             this.setState({
                 password: value,
+                errorPass: false
             });
         }
 
@@ -93,6 +108,8 @@ class Login extends Component {
                                     type="email"
                                     fullWidth
                                     onChange={this.handleChange}
+                                    error={this.state.errorPass}
+                                    required={true}
                                 />
                                 <TextField
                                     margin="dense"
@@ -101,10 +118,12 @@ class Login extends Component {
                                     type="password"
                                     fullWidth
                                     onChange={this.handleChange}
+                                    error={this.state.errorPass}
+                                    required={true}
                                 />
                                 <Button className={classes.boton} onClick={this.handleLocalLogin} color="primary" type="submit">
                                     Iniciar sesión </Button>
-                                <Button variant="contained" color="secondary">
+                                <Button variant="contained" onClick={this.handleGoogleLogin} color="secondary">
                                     Iniciar sesión con Google
                             </Button>
                             </form>
@@ -115,8 +134,26 @@ class Login extends Component {
         )
     }
 }
+function mapDispatchToProps(dispatch) {
+    return {
+        // start: (song, list) => dispatch(start(song, list)),
+        // fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
+        // fetchSongs: () => dispatch(fetchSongs()),
+        setCurrentUser: (user) => dispatch(setCurrentUser(user))
+    };
+}
 
-export default withStyles(styles)(Login);
+const mapStateToProps = function (state) {
+    //console.log('STATE DEL PLAYLISTCONTAINER', state)
+    return {
+        currentUser: state.users.currentUser,
+        // playlist: state.playlists.selected,
+        // songs: state.songs
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login))
+
 
 // import React from 'react';
 // import Playlist from '../components/Playlist';
