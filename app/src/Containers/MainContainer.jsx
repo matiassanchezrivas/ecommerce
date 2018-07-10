@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import './Main.css';
+import '../components/Main.css';
 
 import Button from '@material-ui/core/Button';
-import MenuAppBar from '../Containers/MenuAppBar'
-import Cart from './Cart'
-import Login from '../Containers/LoginContainer'
-import Perfil from '../Containers/Perfil'
+import MenuAppBar from './MenuAppBar'
+import Cart from '../components/Cart'
+import Login from './LoginContainer'
+import Perfil from './Perfil'
 
-import MenuProduct from './MenuProduct'
+import MenuProduct from '../components/MenuProduct'
 
-import ProfileContainer from '../Containers/ProfileContainer';
+import ProfileContainer from './ProfileContainer';
 
 import axios from '../config/axios';
 
