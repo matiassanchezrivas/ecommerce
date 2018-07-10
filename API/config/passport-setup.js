@@ -79,26 +79,9 @@ passport.use(new LocalStrategy(
                     console.log(Chalk.red('La password no coincide', password, currentUser.password))
                     return done(null, false)
                 } else {
-                    done(null, currentUser)
+                    return done(null, currentUser)
                 }
             }
         )
     }
 ));
-
-// passport.use(new LocalStrategy(
-
-//     function (username, password, done) {
-//         console.log(Chalk.red('Entra a la local strategy con ', username, password));
-//         User.findOne({ username: username }, function (err, user) {
-//             if (err) { return done(err); }
-//             if (!user) {
-//                 return done(null, false, { message: 'Incorrect username.' });
-//             }
-//             if (!user.validPassword(password)) {
-//                 return done(null, false, { message: 'Incorrect password.' });
-//             }
-//             return done(null, user);
-//         });
-//     }
-// ));

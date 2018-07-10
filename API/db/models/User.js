@@ -27,7 +27,10 @@ const User = db.define('User', {
   },
   googleID: {
     type: Sequelize.STRING
-  }
+  },
+  profilePicture: {
+    type: Sequelize.TEXT
+  },
 }, {
     hooks: {
       beforeValidate: (user, options) => {
@@ -41,6 +44,18 @@ const User = db.define('User', {
 //   return user.password = hash(user.password);
 
 // });
+
+
+
+module.exports = User;
+
+
+// type {Admin|Regular|}
+// status {activo|inactivo|}
+// name
+// password
+// email
+// ordenes [ ] FK
 
 
 
