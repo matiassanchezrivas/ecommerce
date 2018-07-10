@@ -11,8 +11,12 @@ import Menu from '@material-ui/core/Menu';
 import axios from '../config/axios'
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../action-creators/user'
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Avatar from '@material-ui/core/Avatar';
+import { Link } from 'react-router-dom'
+import Badge from '@material-ui/core/Badge';
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
   },
@@ -25,8 +29,15 @@ const styles = {
   },
   Appbar: {
     background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-  }
-};
+  },
+  link: {
+    textDecoration: 'none',
+    color: 'white'
+  },
+  margin: {
+    margin: theme.spacing.unit * 1,
+  },
+});
 
 class MenuAppBar extends React.Component {
   constructor() {
@@ -60,7 +71,13 @@ class MenuAppBar extends React.Component {
         this.props.setCurrentUser({});
         this.props.history.push('/login')
       })
+    this.handleClose();
   };
+
+  handleLogIn = () => {
+    this.props.history.push('/login')
+    this.handleClose();
+  }
 
   render() {
     const { classes } = this.props;
@@ -69,19 +86,25 @@ class MenuAppBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        {/* <FormGroup>
-          <FormControlLabel
-            control={
-              <Switch checked={auth} onChange={this.handleChange} aria-label="LoginSwitch" />
-            }
-            label={auth ? 'Logout' : 'Login'}
-          />
-        </FormGroup> */}
         <AppBar className={classes.Appbar} position="static">
           <Toolbar>
             <Typography variant="title" color="inherit" className={classes.flex}>
               Ecommerce
             </Typography>
+
+            <Link to='/cart' className={classes.link}>
+
+              <IconButton
+                aria-owns={open ? 'shopping-cart' : null}
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <Badge color='Secondary' badgeContent={0} className={classes.margin}>
+                  <ShoppingCart />
+                </Badge>
+              </IconButton>
+
+            </Link>
             {auth && (
               <div>
                 <IconButton
@@ -90,7 +113,15 @@ class MenuAppBar extends React.Component {
                   onClick={this.handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle />
+                  {(!this.props.currentUser.profilePicture)
+                    ?
+                    <AccountCircle />
+                    :
+                    <Avatar
+                      alt={this.props.currentUser.name}
+                      src={this.props.currentUser.profilePicture}
+                    />
+                  }
                 </IconButton>
                 <Menu
                   id="menu-appbar"
@@ -106,15 +137,21 @@ class MenuAppBar extends React.Component {
                   open={open}
                   onClose={this.handleClose}
                 >
-                  <MenuItem onClick={this.handleClose}>Perfil</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Mis compras</MenuItem>
-                  <MenuItem onClick={this.handleLogOut}>Cerrar sesión</MenuItem>
+                  {
+                    (this.props.currentUser.email) ?
+                      (<div>
+                        <Link to='/profile' className={classes.link}><MenuItem onClick={this.handleClose}>Perfil</MenuItem></Link>
+                        <Link to='/index' className={classes.link}><MenuItem onClick={this.handleClose} >Mis compras</MenuItem></Link>
+                        <MenuItem onClick={this.handleLogOut}>Cerrar sesión</MenuItem></div>)
+                      :
+                      <MenuItem onClick={this.handleLogIn}>Iniciar sesión</MenuItem>
+                  }
                 </Menu>
               </div>
             )}
           </Toolbar>
         </AppBar>
-      </div>
+      </div >
     );
   }
 }
@@ -124,20 +161,12 @@ MenuAppBar.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-  return {
-    // start: (song, list) => dispatch(start(song, list)),
-    // fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
-    // fetchSongs: () => dispatch(fetchSongs()),
-    setCurrentUser: (user) => dispatch(setCurrentUser(user))
-  };
+  return {}
 }
 
 const mapStateToProps = function (state) {
-  //console.log('STATE DEL PLAYLISTCONTAINER', state)
   return {
     currentUser: state.users.currentUser,
-    // playlist: state.playlists.selected,
-    // songs: state.songs
   };
 }
 

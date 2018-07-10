@@ -36,9 +36,7 @@ class perfil extends Component {
             logged: false
         }
     }
-
     componentDidMount() {
-
     }
 
     render() {

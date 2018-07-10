@@ -6,6 +6,7 @@ import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
 import Cart from '../components/Cart'
 import Login from './LoginContainer'
+import Register from './RegisterContainer'
 import Perfil from './Perfil'
 
 import MenuProduct from '../components/MenuProduct'
@@ -40,6 +41,7 @@ class Main extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/product" component={MenuProduct} />
           <Route exact path="/profile" component={Perfil} />
+          <Route exact path="/register" component={Register} />
           <Redirect from="/" to="/login" />
         </Switch>
       </div>
