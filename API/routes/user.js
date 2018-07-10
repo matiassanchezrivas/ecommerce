@@ -10,6 +10,19 @@ router.get('/', function(req, res, next) {
     res.send('hola desde user');
 });
 
+router.get('/:userId', function(req, res, next){
+    User.findOne({
+        where: {
+            id: req.params.userId
+        }
+    })
+    .then(
+        (user)=>{
+            res.json(user)
+        }
+    )
+})
+
 
 router.post('/', function (req, res) {
     console.log('body',req.body);

@@ -6,9 +6,17 @@ const router = express.Router();
 const models = require('../db/models');
 const Order = models.Order
 const Product = models.Product
+const User = models.User
 
 router.get('/', function (req, res, next) {
-    Order.findAll().then(
+    Order.findAll({
+        include: [
+            {
+                model: Product,
+                as: "product"
+            }
+        ]
+    }).then(
         (ordenes) => {
             res.json(ordenes)
         }
