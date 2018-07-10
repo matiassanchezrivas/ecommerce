@@ -10,6 +10,21 @@ router.get('/', function (req, res, next) {
     res.send('hola desde user');
 });
 
+router.get('/me', function (req, res, next) {
+    if (req.isAuthenticated()) {
+        res.status(200).json(
+            {
+                name: req.user.dataValues.name,
+                email: req.user.dataValues.email,
+                profilePicture: req.user.dataValues.profilePicture,
+                type: req.user.dataValues.type,
+            }
+        )
+        //next();
+    } else {
+        res.status(401).send('Unauthorized')
+    }
+})
 
 router.get('/:userId', function (req, res, next) {
     User.findOne({
@@ -24,21 +39,7 @@ router.get('/:userId', function (req, res, next) {
         )
 })
 
-router.get('/me', function (req, res, next) {
-    if (req.isAuthenticated()) {
-        res.status(200).json(
-            {
-                name: req.user.dataValues.name,
-                email: req.user.dataValues.email,
-                profilePicture: req.user.dataValues.profilePicture,
-                type: req.user.dataValues.type,
-            }
-        )
-        next();
-    } else {
-        res.status(401).send('Unauthorized')
-    }
-})
+
 
 
 router.post('/', function (req, res) {
