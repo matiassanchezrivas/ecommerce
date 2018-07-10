@@ -12,7 +12,26 @@ import MenuProduct from './MenuProduct'
 
 import ProfileContainer from '../Containers/ProfileContainer';
 
-class Main extends Component {
+import axios from '../config/axios';
+
+import { connect } from 'react-redux'
+import { setCurrentUser } from '../action-creators/user'
+
+class Main extends React.Component {
+
+  componentDidMount() {
+    console.log('entra al did mount')
+    axios.get('/user/me')
+      .then(res => res.data)
+      .then((user) => {
+        this.props.setCurrentUser(user)
+      })
+      .catch(
+        (err) => {
+          console.log('no hay usuario logueado')
+        })
+  }
+
   render() {
     return (
       <div className="App">
@@ -28,4 +47,16 @@ class Main extends Component {
   }
 }
 
-export default Main;
+function mapDispatchToProps(dispatch) {
+  return {
+    setCurrentUser: (user) => dispatch(setCurrentUser(user))
+  };
+}
+
+const mapStateToProps = function (state) {
+  return {
+    //currentUser: state.users.currentUser,
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main)

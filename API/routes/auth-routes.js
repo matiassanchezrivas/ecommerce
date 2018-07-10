@@ -59,7 +59,8 @@ router.post('/login', passport.authenticate('local'), function (req, res) {
             name: req.user.dataValues.name,
             email: req.user.dataValues.email,
             profilePicture: req.user.dataValues.profilePicture,
-            username: req.user.dataValues.username
+            username: req.user.dataValues.username,
+            type: req.user.dataValues.type
         }
     )
 });
