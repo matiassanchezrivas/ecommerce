@@ -34,7 +34,7 @@ router.post('/register', function (req, res, next) {
     User.findOne({ where: { email: req.body.email } })
         .then((user) => {
             if (user) {
-                res.send('usuarioYaCreado')
+                res.status(401).send('usuarioYaCreado')
             } else {
                 //El user no existe
                 User.create({
