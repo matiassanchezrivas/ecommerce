@@ -6,15 +6,24 @@ const Chalk = require('chalk')
 const models = require('../db/models');
 const User = models.User;
 
-
 //auth login
 router.get('/login', (req, res) => {
     //Acá se llama la página de login
 });
 
 router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/')
+    console.log('req', req.user)
+
+    if (req.isAuthenticated()) {
+        console.log('USUARIO DESLOGUEADO ' + req.user.email)
+        req.logout();
+        res.send('se deslogoeasda')
+    } else {
+        console.log('No habia usuario para desloguear ')
+        res.send('No habia usuario')
+    }
+
+
 });
 
 router.post('/register', function (req, res, next) {
@@ -44,8 +53,15 @@ router.post('/register', function (req, res, next) {
 });
 
 router.post('/login', passport.authenticate('local'), function (req, res) {
-    console.log('sadas')
-    res.send('holis');
+    //devuelve los datos usuario
+    res.status(200).json(
+        {
+            name: req.user.dataValues.name,
+            email: req.user.dataValues.email,
+            profilePicture: req.user.dataValues.profilePicture,
+            username: req.user.dataValues.username
+        }
+    )
 });
 
 //auth with google
@@ -56,8 +72,10 @@ router.get('/google',
 
 //Obtengo los datos de google
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    //console.log(req.user);
-    res.redirect('/profile')
+    console.log(req.user);
+
+    res.send('ok')
+    // res.redirect('/profile')
 })
 
 //auth with local
