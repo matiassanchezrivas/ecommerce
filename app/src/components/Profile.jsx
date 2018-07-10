@@ -84,11 +84,11 @@ class Profile extends React.Component {
                                         <Grid item xs={4}>
                                             <div className={classes.usuarios}>
 
-                                                <p>usuario: {profile[0].name}</p>
-                                                <p>password: <span>{profile[0].password}</span>
+                                                <p>usuario: {profile.name}</p>
+                                                <p>password: <span>{'*********'}</span>
                                                     <Button className={classes.b1} onClick={this.handleClickOpen}>Modificar</Button>
                                                 </p>
-                                                <p>email: {profile[0].email}</p>
+                                                <p>email: {profile.email}</p>
                                             </div>
                                         </Grid>
                                     </Grid>
@@ -98,8 +98,8 @@ class Profile extends React.Component {
                                         </Grid>
                                         <Grid item xs={3}>
                                             <div className={classes.usuarios}>
-                                                <p>tipo: {profile[0].type}</p>
-                                                <p>estado: {profile[0].status}</p>
+                                                <p>tipo: {profile.type}</p>
+                                                <p>estado: {profile.status}</p>
                                             </div>
                                         </Grid>
                                     </Grid>

@@ -14,7 +14,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import Grid from '@material-ui/core/Grid';
-import TableHead from '@material-ui/core/TableHead';
+
 
 const actionsStyles = theme => ({
     root: {
@@ -103,7 +103,6 @@ const styles = theme => ({
         marginTop: theme.spacing.unit * 3,
     },
     table: {
-        textAlign: 'left',
         minWidth: 500,
     },
     tableWrapper: {
@@ -122,7 +121,7 @@ const styles = theme => ({
     },
 });
 
-class Orders extends React.Component {
+class OrdersAdmin extends React.Component {
     constructor(props) {
         super(props);
 
@@ -143,31 +142,22 @@ class Orders extends React.Component {
 
 
     render() {
-        const { classes, orders } = this.props;
+        const { classes, OrdersAdmin } = this.props;
         const { data, rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
             <Grid container spacing={12}>
-                {console.log('desde orders', this.props)}
+                {/* {this.props.orders.map(order => <div>{order.id}test </div>)} */}
                 <Grid item xs={1}>
                 </Grid>
                 <Grid item xs={10}>
                     <Paper className={classes.root}>
                         <div className={classes.tableWrapper}>
                             <Table className={classes.table}>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Nombre</TableCell>
-                                        <TableCell>Estado</TableCell>
-                                        <TableCell>Fecha</TableCell>
-                                        <TableCell>Cantidad</TableCell>
-                                        <TableCell>Total</TableCell>
-                                    </TableRow>
-                                </TableHead>
                                 <TableBody>
-                                    {this.props.orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                                        console.log(n)
+                                    {console.log('props desde OrderAdmin', this.props)}
+                                    {this.props.OrdersAdmin.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
                                         return (
                                             <TableRow key={n.id}>
                                                 <TableCell component="th" scope="row">
@@ -176,10 +166,9 @@ class Orders extends React.Component {
                                                 <TableCell component="th" scope="row">
                                                     {n.status}
                                                 </TableCell>
-                                                {console.log('date', n.createdAt.split('.')[0])}
-                                                <TableCell numeric>{n.createdAt.split('T')[0]}</TableCell>
+                                                <TableCell numeric>{n.createdAt}</TableCell>
                                                 <TableCell numeric>{n.product[0].orderProduct.cantidad}</TableCell>
-                                                <TableCell numeric>{'total: $ ' + n.total}</TableCell>
+                                                <TableCell numeric>{'$ ' + n.total}</TableCell>
                                             </TableRow>
                                         );
                                     })}
@@ -206,13 +195,13 @@ class Orders extends React.Component {
                         </div>
                     </Paper>
                 </Grid>
-            </Grid >
+            </Grid>
         );
     }
 }
 
-Orders.propTypes = {
+OrdersAdmin.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Orders);
+export default withStyles(styles)(OrdersAdmin);

@@ -20,6 +20,7 @@ class Main extends Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/product" component={MenuProduct} />
+          <Route exact path="/user" component={ProfileContainer} />
           <Route exact path="/profile" component={Perfil} />
           <Redirect from="/" to="/login" />
         </Switch>
