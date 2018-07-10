@@ -10,6 +10,20 @@ router.get('/', function (req, res, next) {
     res.send('hola desde user');
 });
 
+
+router.get('/:userId', function (req, res, next) {
+    User.findOne({
+        where: {
+            id: req.params.userId
+        }
+    })
+        .then(
+            (user) => {
+                res.json(user)
+            }
+        )
+})
+
 router.get('/me', function (req, res, next) {
     if (req.isAuthenticated()) {
         res.status(200).json(
