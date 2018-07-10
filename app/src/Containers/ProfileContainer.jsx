@@ -1,6 +1,6 @@
 import React from 'react';
 import Profile from '../components/Profile';
-import Orders from '../components/Orders';
+import Orders from './OrdersContainer';
 import axios from 'axios';
 
 class ProfileContainer extends React.Component {
@@ -22,22 +22,19 @@ class ProfileContainer extends React.Component {
                     user: user
                 }, () => this.receiveOrders(this.state.user.type))
             });
-
-
     }
 
     receiveOrders(userType) {
         if (userType === 'admin') {
             axios.get(`/order`)
-            .then(response => {
-                return response.data
-            })
-            .then(orders => {
-                this.setState({
-                    orders: orders
+                .then(response => {
+                    return response.data
                 })
-            });
-            
+                .then(orders => {
+                    this.setState({
+                        orders: orders
+                    })
+                });
         }
         if (userType == 'regular') {
             console.log('regular', userType)
@@ -57,7 +54,7 @@ class ProfileContainer extends React.Component {
         return (
             <div>
                 <Profile profile={this.state.user} />
-                <Orders orders={this.state.orders} />
+                <Orders orders={this.state.orders} {...this.props} />
             </div>
         )
     }
