@@ -1,6 +1,6 @@
 import React from 'react';
 import Profile from '../components/Profile';
-import Orders from '../components/Orders';
+import Orders from './OrdersContainer';
 import axios from 'axios';
 
 class ProfileContainer extends React.Component {
@@ -35,7 +35,6 @@ class ProfileContainer extends React.Component {
                         orders: orders
                     })
                 });
-
         }
         if (userType == 'regular') {
             console.log('regular', userType)
@@ -55,7 +54,7 @@ class ProfileContainer extends React.Component {
         return (
             <div>
                 <Profile profile={this.state.user} />
-                <Orders orders={this.state.orders} />
+                <Orders orders={this.state.orders} {...this.props} />
             </div>
         )
     }
