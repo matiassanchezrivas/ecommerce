@@ -22,22 +22,20 @@ class ProfileContainer extends React.Component {
                     user: user
                 }, () => this.receiveOrders(this.state.user.type))
             });
-
-
     }
 
     receiveOrders(userType) {
         if (userType === 'admin') {
             axios.get(`/order`)
-            .then(response => {
-                return response.data
-            })
-            .then(orders => {
-                this.setState({
-                    orders: orders
+                .then(response => {
+                    return response.data
                 })
-            });
-            
+                .then(orders => {
+                    this.setState({
+                        orders: orders
+                    })
+                });
+
         }
         if (userType == 'regular') {
             console.log('regular', userType)
