@@ -4,10 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Icon from '@material-ui/core/Icon';
-import PropTypes from 'prop-types';
 import axios from '../config/axios.js'
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../action-creators/user'
@@ -44,6 +40,9 @@ class Login extends Component {
         this.handleGoogleLogin = this.handleGoogleLogin.bind(this);
     }
 
+    componentDidMount() {
+    }
+
     handleLocalLogin(event) {
         event.preventDefault();
         console.log('entra al handle login con ' + this.state.password + ' ' + this.state.email);
@@ -58,7 +57,6 @@ class Login extends Component {
                 this.props.setCurrentUser(user)
                 console.log(this.props)
                 this.props.history.push('/profile')
-                // window.location.replace("/profile");
             })
             .catch((err) => {
                 console.log(err)
