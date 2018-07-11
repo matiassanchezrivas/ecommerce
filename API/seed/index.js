@@ -14,6 +14,7 @@ module.exports = () => {
         name: 'matias',
         password: 'todobien',
         email: 'matiassanchezrivas@hotmail.com',
+        profilePicture: 'https://www.thersa.org/globalassets/profile-images/staff/jake-thorold-312.jpg'
     }
     users[1] = {
         type: 'regular',
@@ -21,6 +22,7 @@ module.exports = () => {
         name: 'nico',
         password: 'todobien2',
         email: 'nicobernal@gmail.com',
+        profilePicture: 'https://www.picmonkey.com/blog/wp-content/uploads/2016/11/1-intro-photo-final.jpg'
     }
 
     //PRODUCTOS

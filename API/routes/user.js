@@ -18,6 +18,7 @@ router.get('/me', function (req, res, next) {
                 email: req.user.dataValues.email,
                 profilePicture: req.user.dataValues.profilePicture,
                 type: req.user.dataValues.type,
+                id: req.user.id
             }
         )
         //next();

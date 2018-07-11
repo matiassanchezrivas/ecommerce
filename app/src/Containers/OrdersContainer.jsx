@@ -8,94 +8,11 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import FirstPageIcon from '@material-ui/icons/FirstPage';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
-import LastPageIcon from '@material-ui/icons/LastPage';
+
 import Grid from '@material-ui/core/Grid';
 import TableHead from '@material-ui/core/TableHead';
+import TablePaginationActionsWrapped from '../components/pagination.jsx'
 
-const actionsStyles = theme => ({
-    root: {
-        flexShrink: 0,
-        color: theme.palette.text.secondary,
-        marginLeft: theme.spacing.unit * 2.5,
-    },
-});
-
-class TablePaginationActions extends React.Component {
-    handleFirstPageButtonClick = event => {
-        this.props.onChangePage(event, 0);
-    };
-
-    handleBackButtonClick = event => {
-        this.props.onChangePage(event, this.props.page - 1);
-    };
-
-    handleNextButtonClick = event => {
-        this.props.onChangePage(event, this.props.page + 1);
-    };
-
-    handleLastPageButtonClick = event => {
-        this.props.onChangePage(
-            event,
-            Math.max(0, Math.ceil(this.props.count / this.props.rowsPerPage) - 1),
-        );
-    };
-
-    render() {
-        const { classes, count, page, rowsPerPage, theme } = this.props;
-
-        return (
-            <div className={classes.root}>
-                <IconButton
-                    onClick={this.handleFirstPageButtonClick}
-                    disabled={page === 0}
-                    aria-label="First Page"
-                >
-                    {theme.direction === 'rtl' ? <LastPageIcon /> : <FirstPageIcon />}
-                </IconButton>
-                <IconButton
-                    onClick={this.handleBackButtonClick}
-                    disabled={page === 0}
-                    aria-label="Previous Page"
-                >
-                    {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-                </IconButton>
-                <IconButton
-                    onClick={this.handleNextButtonClick}
-                    disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                    aria-label="Next Page"
-                >
-                    {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-                </IconButton>
-                <IconButton
-                    onClick={this.handleLastPageButtonClick}
-                    disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-                    aria-label="Last Page"
-                >
-                    {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />}
-                </IconButton>
-            </div>
-        );
-    }
-}
-
-// Investigar que es esto
-
-TablePaginationActions.propTypes = {
-    classes: PropTypes.object.isRequired,
-    count: PropTypes.number.isRequired,
-    onChangePage: PropTypes.func.isRequired,
-    page: PropTypes.number.isRequired,
-    rowsPerPage: PropTypes.number.isRequired,
-    theme: PropTypes.object.isRequired,
-};
-
-const TablePaginationActionsWrapped = withStyles(actionsStyles, { withTheme: true })(
-    TablePaginationActions,
-);
 
 const styles = theme => ({
     root: {
@@ -141,6 +58,11 @@ class Orders extends React.Component {
         this.setState({ rowsPerPage: event.target.value });
     };
 
+    redirectToOrder = (id) => {
+        console.log(this.props)
+        this.props.history.push(`/order/${id}`)
+    }
+
 
     render() {
         const { classes, orders } = this.props;
@@ -149,7 +71,6 @@ class Orders extends React.Component {
 
         return (
             <Grid container spacing={12}>
-                {console.log('desde orders', this.props)}
                 <Grid item xs={1}>
                 </Grid>
                 <Grid item xs={10}>
@@ -158,29 +79,34 @@ class Orders extends React.Component {
                             <Table className={classes.table}>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Nombre</TableCell>
-                                        <TableCell>Estado</TableCell>
-                                        <TableCell>Fecha</TableCell>
-                                        <TableCell>Cantidad</TableCell>
+                                        <TableCell>Número de pedido</TableCell>
+                                        <TableCell>Fecha de creación</TableCell>
+                                        <TableCell>Status</TableCell>
+                                        <TableCell>Cantidad de productos</TableCell>
                                         <TableCell>Total</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     {this.props.orders.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(n => {
-                                        console.log(n)
                                         return (
-                                            <TableRow key={n.id}>
+                                            <TableRow key={n.id} hover onClick={()=>this.redirectToOrder(n.id)}>
                                                 <TableCell component="th" scope="row">
-                                                    {n.product[0].name}
+                                                    {n.id}
+                                                </TableCell>
+                                                <TableCell component="th" scope="row">
+                                                    {n.createdAt.split('T')[0]}
                                                 </TableCell>
                                                 <TableCell component="th" scope="row">
                                                     {n.status}
                                                 </TableCell>
-                                                {console.log('date', n.createdAt.split('.')[0])}
-                                                <TableCell numeric>{n.createdAt.split('T')[0]}</TableCell>
-                                                <TableCell numeric>{n.product[0].orderProduct.cantidad}</TableCell>
-                                                <TableCell numeric>{'total: $ ' + n.total}</TableCell>
+                                                <TableCell component="th" scope="row">
+                                                    {n.product.length}
+                                                </TableCell>
+                                                <TableCell component="th" scope="row">
+                                                    {'$ ' + n.total}
+                                                </TableCell>
                                             </TableRow>
+
                                         );
                                     })}
                                     {emptyRows > 0 && (
