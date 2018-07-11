@@ -41,7 +41,7 @@ class Main extends React.Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/product" component={MenuProduct} />
-          <Route exact path="/singleproduct" component={SingleProduct} />
+          <Route exact path="/product/1" component={SingleProduct} />
           <Route exact path="/profile" component={Perfil} />
           <Route exact path="/user" component= {ProfileContainer} />
           <Route exact path="/register" component={Register} />

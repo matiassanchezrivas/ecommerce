@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -12,6 +13,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { connect } from 'react-redux';
+axios.defaults.baseURL='http://localhost:3002'
  
 const db =[
     {Nombre:"iphone 5", descripcion:'Lizards are a widespread group of squamate reptiles, with over 6,000 species, rangingacross all continents except Antarctica',imagen:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfnD5ehNmZO3CeClig1Zacs8hybmYyRevuF6ajW7Utd2ToQh2",categoria: "categoria 1"}
@@ -101,6 +103,29 @@ const styles = theme => ({
 
 
 class SingleProduct extends React.Component{
+    constructor(){
+        super()
+        this.state = {
+            currentProduct:[]
+        }
+
+    }
+    
+    componentDidMount() {
+        console.log('entra al did mount del SingleProduct')
+        axios.get('/product/1')
+          .then(res => res.data)
+          .then((product) => {
+              console.log('currentProduct', product[0])
+            this.setState({
+                currentProduct:product[0]
+            })
+          })
+          .catch(
+            (err) => {
+              console.log('no hay producto con ese id')
+            })
+      }
   
     render(){
         const {classes}=this.props  
@@ -108,14 +133,12 @@ class SingleProduct extends React.Component{
         return(    <div>
                     <div className={classes.imagen}>
                     <div>
-                    <img src={this.props.cart.cart[0].imagen} className={classes.ImgProd}/> 
-                    <img src={this.props.cart.cart[0].imagen} className={classes.ImgProd}/>
-                    <img src={this.props.cart.cart[0].imagen} className={classes.ImgProd}/> 
+                    
                     <div className={classes.title}>
-                        {<h4>hola</h4>}
+                        <h4>{this.state.currentProduct.name}</h4>
                         <Button className={classes.button}>
                         comprar
-                        </Button>|
+                        </Button>
                         <Button className={classes.button}>
                         detalle
                         </Button>
