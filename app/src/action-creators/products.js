@@ -1,8 +1,20 @@
-import axios from 'axios';
-import { ADD_TO_CART } from '../constants';
+import axios from '../config/axios';
+import { SET_CURRENT_PRODUCT } from '../constants';
+import { RECEIVE_PRODUCTS } from '../constants';
 
-export const addToCart = (product) => ({
-  type: ADD_TO_CART,
-  product,
+export const setCurrentProduct = (currentProduct) => ({
+  type: SET_CURRENT_PRODUCT,
+  currentProduct
 });
 
+export const receiveProducts = (products) => ({
+  type: RECEIVE_PRODUCTS,
+  products
+});
+
+export const fetchProducts = () => dispatch =>
+  axios.get('/product')
+    .then(res => res.data)
+    .then(products => {
+      dispatch(receiveProducts(products))
+    });
