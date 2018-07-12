@@ -70,7 +70,7 @@ class Orders extends React.Component {
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 
         return (
-            <Grid container spacing={12}>
+            <Grid container spacing={8}>
                 <Grid item xs={1}>
                 </Grid>
                 <Grid item xs={10}>
