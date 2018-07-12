@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import React, { PureComponent } from 'react'
 import Cart from '../components/Cart'
-import { RemoveProductCart } from '../action-creators/cart'
+import { RemoveProductCart, updateQuantCart } from '../action-creators/cart'
 
 
 let id = 0;
@@ -35,8 +35,6 @@ export class CartContainer extends PureComponent {
       total: 0,
     };
     this.vaciarCart = this.vaciarCart.bind(this);
-    this.updateCantidad = this.updateCantidad.bind(this);
-    this.delProduct = this.delProduct.bind(this);
   }
 
 
@@ -47,7 +45,7 @@ export class CartContainer extends PureComponent {
     if (!this.state.items) {
       return
     } else {
-      this.getLocalStorage()
+      // this.getLocalStorage()
     }
 
     this.calculatePrice()
@@ -55,9 +53,8 @@ export class CartContainer extends PureComponent {
 
 
   componentDidUpdate() {
-    this.saveLocalStorage()
+    // this.saveLocalStorage()
     this.calculatePrice()
-    var itemsClone = this.state.items.slice();
   }
 
   calculatePrice() {
@@ -69,24 +66,14 @@ export class CartContainer extends PureComponent {
     this.setState({total: total})
   }
 
-  delProduct(index) {
-    // Eliminar productos del carrito
-    var itemsClone = this.state.items.slice();
-    itemsClone.splice(index,1)
-    this.setState({items: itemsClone})
-  }
 
   updateCantidad(e, index){
     console.log(e.target.value)
     if (e.target.value === '0') {
-      this.delProduct(index)
+      this.props.RemoveProductCart(index)
     } else {
     // incremento y decremento de cantidad
-    this.setState({items: [
-      ...this.state.items.slice(0,index),
-      {...this.state.items[index], cantidad: e.target.value},
-      ...this.state.items.slice(index + 1)
-    ]})
+    this.props.updateQuantCart(index, e.target.value)
   }
   }
 
@@ -97,15 +84,15 @@ export class CartContainer extends PureComponent {
     })
   }
 
-  saveLocalStorage(){
-    var itemsClone = this.state.items.slice();
-    localStorage.setItem("Cart", JSON.stringify(itemsClone));
-  }
+  // saveLocalStorage(){
+  //   var itemsClone = this.state.items.slice();
+  //   localStorage.setItem("Cart", JSON.stringify(itemsClone));
+  // }
 
-  getLocalStorage(){
-    var LocalCart = JSON.parse(localStorage.getItem("Cart"));
-    this.setState({items: LocalCart})
-  }
+  // getLocalStorage(){
+  //   var LocalCart = JSON.parse(localStorage.getItem("Cart"));
+  //   this.setState({items: LocalCart})
+  // }
 
 
   CkeckOut(){
@@ -129,14 +116,15 @@ export class CartContainer extends PureComponent {
 
 const mapDispatchToProps = function (dispatch) {
   return ({
-    RemoveProductCart: (product) => dispatch(RemoveProductCart(product))
+    RemoveProductCart: (product) => dispatch(RemoveProductCart(product)),
+    updateQuantCart: (index, value) => dispatch(updateQuantCart(index, value))
 })
 }
 
 
 const mapStateToProps = function (state) {
   return {
-      cart: state.cart.cart,
+      cart: state.cart,
       currentUser: state.users.currentUser,
   };
 }

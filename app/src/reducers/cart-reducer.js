@@ -1,4 +1,4 @@
-import {  } from '../constants';
+import { ADD_PRODUCT_CART, REMOVE_PRODUCT_CART, EMPTY_CART, UPDATE_QUANT_CART, SET_TOTAL_CART, SET_ORDER_FROM_CART, CHECKOUT_CART } from '../constants';
 
 // data falsa   //
 
@@ -27,18 +27,34 @@ const data = [
 // data falsa   //
 
 const initialState = {
-  cart:{
-    owner: null,
-    items: data,
-    status: 'carrito',
-    total: 0,
-  }
+  owner: null,
+  items: data,
+  status: 'carrito',
+  total: 0,
   
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    
+    case REMOVE_PRODUCT_CART:
+      var index = action.index
+      return {
+        ...state,
+        items: [].concat(state.items.slice(0, index), state.items.slice(index+1, state.items.length))
+    };
+    case UPDATE_QUANT_CART:
+      var index = action.index
+      const value = action.value
+      return {
+        ...state,
+        items: [
+          ...state.items.slice(0,index),
+          {...state.items[index], cantidad: value},
+          ...state.items.slice(index + 1)
+        ]
+    };
+
+
     default:
       return state;
   }
