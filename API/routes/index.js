@@ -9,6 +9,7 @@ const categoryRouter = require('./category');
 const reviewRouter = require('./review');
 const authRouter = require('./auth-routes')
 
+
 // uso routes
 router.use('/product', productRouter);
 router.use('/order', orderRouter);
@@ -16,5 +17,6 @@ router.use('/category', categoryRouter);
 router.use('/review', reviewRouter);
 router.use('/user', usersRouter);
 router.use('/auth', authRouter)
+
 
 module.exports = router;

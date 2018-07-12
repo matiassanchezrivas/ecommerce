@@ -99,7 +99,7 @@ class MenuAppBar extends React.Component {
                 aria-haspopup="true"
                 color="inherit"
               >
-                <Badge color='secondary' badgeContent={0} className={classes.margin}>
+                <Badge color='secondary' badgeContent={this.props.cart.items.length} className={classes.margin}>
                   <ShoppingCart />
                 </Badge>
               </IconButton>
@@ -167,6 +167,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = function (state) {
   return {
     currentUser: state.users.currentUser,
+    cart: state.cart,
   };
 }
 
