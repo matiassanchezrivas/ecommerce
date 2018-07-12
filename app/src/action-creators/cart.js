@@ -9,9 +9,9 @@ export const addProductCart = (product) => ({
 
 
 // remove product from cart
-export const RemoveProductCart = (product) => ({
+export const RemoveProductCart = (index) => ({
         type: REMOVE_PRODUCT_CART,
-        product
+        index
 });
 
 // empty cart
