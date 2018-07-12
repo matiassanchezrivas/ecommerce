@@ -4,12 +4,12 @@ import '../components/Main.css';
 
 import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
-import Cart from '../components/Cart'
 import Login from './LoginContainer'
 import Register from './RegisterContainer'
 import Perfil from './Perfil'
 
-import MenuProduct from '../components/MenuProduct'
+import MenuProduct from '../components/MenuProduct';
+import SingleProduct from '../components/SingleProduct';
 
 import ProfileContainer from './ProfileContainer';
 
@@ -17,6 +17,7 @@ import axios from '../config/axios';
 
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../action-creators/user'
+import CartContainer from './CartContainer';
 
 class Main extends React.Component {
 
@@ -39,7 +40,9 @@ class Main extends React.Component {
         <MenuAppBar {...this.props} />
         <Switch>
           <Route exact path="/login" component={Login} />
+          <Route exact path="/cart" component={CartContainer} />
           <Route exact path="/product" component={MenuProduct} />
+          <Route exact path="/product/1" component={SingleProduct} />
           <Route exact path="/profile" component={Perfil} />
           <Route exact path="/user" component= {ProfileContainer} />
           <Route exact path="/register" component={Register} />

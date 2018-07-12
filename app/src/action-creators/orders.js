@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { RECEIVE_ORDERS, RECEIVE_ORDER } from '../constants';
+import { RECEIVE_ORDERS, RECEIVE_ORDER, SET_ORDER } from '../constants';
 
 const receiveOrders = (orders) => ({
   type: RECEIVE_ORDERS,
@@ -8,6 +8,11 @@ const receiveOrders = (orders) => ({
 
 const receiveOrder = (order) => ({
   type: RECEIVE_ORDER,
+  order,
+});
+
+const setOrder = (order) => ({
+  type: SET_ORDER,
   order,
 });
 
