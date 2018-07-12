@@ -65,41 +65,41 @@ class Profile extends React.Component {
     };
 
     render() {
-        const { classes, profile } = this.props;
+        const { classes, currentUser } = this.props;
 
         return (
             <div>
                 <form className={classes.container} noValidate autoComplete="off">
-                    <Grid container spacing={12}>
+                    <Grid container spacing={8}>
                         <Grid item xs={1}>
                         </Grid>
                         <Grid item xs={10}>
                             <div className={classes.paper}>
                                 <div>
                                     <h2 className={classes.title}>Datos de usuario</h2>
-                                    <Grid container spacing={12}>
+                                    <Grid container spacing={8}>
                                         <Grid item xs={5}>
-                                            <img className={classes.foto} src="https://scontent.faep8-1.fna.fbcdn.net/v/t1.0-9/28378730_10215251572393808_4414449403524284416_n.jpg?_nc_cat=0&oh=e59ae84599171ad49f4fc0aca86023d6&oe=5BEC7613" />
+                                            <img className={classes.foto} src={this.props.currentUser.profilePicture} />
                                         </Grid>
                                         <Grid item xs={4}>
                                             <div className={classes.usuarios}>
 
-                                                <p>usuario: {profile.name}</p>
+                                                <p>usuario: {currentUser.name}</p>
                                                 <p>password: <span>{'*********'}</span>
                                                     <Button className={classes.b1} onClick={this.handleClickOpen}>Modificar</Button>
                                                 </p>
-                                                <p>email: {profile.email}</p>
+                                                <p>email: {currentUser.email}</p>
                                             </div>
                                         </Grid>
                                     </Grid>
                                     <h2 className={classes.title}>Datos de la cuenta</h2>
-                                    <Grid container spacing={12}>
+                                    <Grid container spacing={8}>
                                         <Grid item xs={5}>
                                         </Grid>
                                         <Grid item xs={3}>
                                             <div className={classes.usuarios}>
-                                                <p>tipo: {profile.type}</p>
-                                                <p>estado: {profile.status}</p>
+                                                <p>tipo: {currentUser.type}</p>
+                                                <p>estado: {currentUser.status}</p>
                                             </div>
                                         </Grid>
                                     </Grid>

@@ -8,15 +8,27 @@ const receiveOrders = (orders) => ({
 
 const receiveOrder = (order) => ({
   type: RECEIVE_ORDER,
-  album,
+  order,
 });
 
-export const fetchOrders = () => dispatch =>
-  axios.get('/api/orders')
+export const fetchOrders = userId => dispatch =>
+{
+  console.log(userId, 'userID')
+  if(userId){
+    console.log('entra en /order/userid/orders')
+    axios.get(`/user/${userId}/orders`)
     .then(res => res.data)
     .then(orders => dispatch(receiveOrders(orders)));
+  }else {
+    console.log('entra en /order')
+    axios.get('/order')
+    .then(res => res.data)
+    .then(orders => dispatch(receiveOrders(orders)));
+  }
+}
+  
 
 export const fetchOrder = id => dispatch =>
-  axios.get(`/api/albums/${id}`)
+  axios.get(`/order/${id}`)
     .then(res => res.data)
-    .then(order => dispatch(receiveOrder(order)));
+    .then(orders => dispatch(receiveOrders(orders)));
