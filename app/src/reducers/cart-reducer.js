@@ -43,16 +43,21 @@ export default (state = initialState, action) => {
         items: [].concat(state.items.slice(0, index), state.items.slice(index+1, state.items.length))
     };
     case UPDATE_QUANT_CART:
-      var index = action.index
+      var i = action.index
       const value = action.value
       return {
         ...state,
         items: [
-          ...state.items.slice(0,index),
-          {...state.items[index], cantidad: value},
-          ...state.items.slice(index + 1)
+          ...state.items.slice(0,i),
+          {...state.items[i], cantidad: value},
+          ...state.items.slice(i + 1)
         ]
     };
+    case EMPTY_CART:
+    return {
+      ...state,
+      items: []
+  };
 
 
     default:

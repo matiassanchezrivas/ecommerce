@@ -2,7 +2,7 @@
 import { connect } from 'react-redux'
 import React, { PureComponent } from 'react'
 import Cart from '../components/Cart'
-import { RemoveProductCart, updateQuantCart } from '../action-creators/cart'
+import { RemoveProductCart, updateQuantCart, emptyCart } from '../action-creators/cart'
 
 
 let id = 0;
@@ -31,23 +31,14 @@ export class CartContainer extends PureComponent {
     super(props);
     // Don't call this.setState() here!
     this.state = { 
-      items: [],
       total: 0,
     };
-    this.vaciarCart = this.vaciarCart.bind(this);
+    this.updateCantidad = this.updateCantidad.bind(this)
   }
 
 
   componentDidMount() {
     //con la session iniciada deber'ia traer data con axios en ves del local
-
-    //traigo data guardada en el local storage
-    if (!this.state.items) {
-      return
-    } else {
-      // this.getLocalStorage()
-    }
-
     this.calculatePrice()
   }
 
@@ -68,21 +59,16 @@ export class CartContainer extends PureComponent {
 
 
   updateCantidad(e, index){
+    var value = e.target.value
     console.log(e.target.value)
-    if (e.target.value === '0') {
+    if (e.target.value == '0') {
       this.props.RemoveProductCart(index)
     } else {
-    // incremento y decremento de cantidad
-    this.props.updateQuantCart(index, e.target.value)
-  }
+    // incremento y decremento de cantidad redux
+    this.props.updateQuantCart(index, value)
+    }
   }
 
-  vaciarCart(){
-    this.setState({ 
-      items: [],
-      total: 0,
-    })
-  }
 
   // saveLocalStorage(){
   //   var itemsClone = this.state.items.slice();
@@ -109,7 +95,7 @@ export class CartContainer extends PureComponent {
 
   render() {
     return (
-      <Cart userC={this.props.cart.owner} items={this.props.cart.items} eliminar={this.props.RemoveProductCart} total={this.state.total} cantidad={this.updateCantidad} vaciar={this.vaciarCart}/>
+      <Cart userC={this.props.cart.owner} items={this.props.cart.items} eliminar={this.props.RemoveProductCart} total={this.state.total} cantidad={this.updateCantidad} vaciar={this.props.emptyCart}/>
     )
   }
 }
@@ -117,7 +103,8 @@ export class CartContainer extends PureComponent {
 const mapDispatchToProps = function (dispatch) {
   return ({
     RemoveProductCart: (product) => dispatch(RemoveProductCart(product)),
-    updateQuantCart: (index, value) => dispatch(updateQuantCart(index, value))
+    updateQuantCart: (index, value) => dispatch(updateQuantCart(index, value)),
+    emptyCart: (cart) => dispatch(emptyCart(cart))
 })
 }
 
