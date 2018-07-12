@@ -99,7 +99,7 @@ class MenuAppBar extends React.Component {
                 aria-haspopup="true"
                 color="inherit"
               >
-                <Badge color='Secondary' badgeContent={0} className={classes.margin}>
+                <Badge color='secondary' badgeContent={0} className={classes.margin}>
                   <ShoppingCart />
                 </Badge>
               </IconButton>

@@ -6,4 +6,6 @@ export const ADD_ORDER = 'ADD_ORDER';
 
 // Users
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const RECEIVE_USERS = 'RECEIVE_USERS';
+
 

@@ -8,6 +8,7 @@ import Cart from '../components/Cart'
 import Login from './LoginContainer'
 import Register from './RegisterContainer'
 import Perfil from './Perfil'
+import Users from './UsersContainer'
 
 import MenuProduct from '../components/MenuProduct'
 
@@ -41,9 +42,10 @@ class Main extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/product" component={MenuProduct} />
           <Route exact path="/profile" component={Perfil} />
-          <Route exact path="/user" component= {ProfileContainer} />
+          <Route exact path="/user" component={ProfileContainer} />
           <Route exact path="/register" component={Register} />
-          <Redirect from="/" to="/login" />
+          <Route exact path="/users" component={Users} />
+          <Redirect from="/" to="/Users" />
         </Switch>
       </div>
     );
