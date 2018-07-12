@@ -29,8 +29,8 @@ module.exports = () => {
     var products = [];
     products[0] = {
         name: 'Skis salomon',
-        description: 'Salomon skis',
-        images: ['url1', 'url2'],
+        description: 'Capa única de fibra preimpregnada que consta de un tejido de carbono y lino a lo largo del esquí. Combina la increíble fuerza y el peso mínimo de la fibra de carbono para ofrecer estabilidad y refuerzo, con un nivel de amortiguación y absorción de vibraciones que rebasa ampliamente a otras construcciones tradicionales de esquís ligeros y de carbono. Patentada y exclusiva de Salomon.',
+        images: ['https://www.extremevital.com/catalog/images/salomon/2016/Z12_SPEED_l.jpg', 'https://www.extremevital.com/catalog/images/salomon/2017/x_race_sw_z12speed_1_l.jpg', 'https://www.extremevital.com/catalog/images/salomon/2018/x-race_sw_2018_l.jpg'],
         stock: 1,
         available: true,
         price: 50,
@@ -38,8 +38,8 @@ module.exports = () => {
     }
     products[1] = {
         name: 'Snowboard burton',
-        description: 'Snowboard clash v-rocker 155',
-        images: ['url1', 'url2'],
+        description: 'Tabla de snowboard  Salomon Sanchez la freestyle definitiva acortada y con anchura extra para mantener la estabilidad en trucos. Blandita y reactiva como una freestyle tiene que ser. Todas las características populares de temporadas pasadas del snowboard Sanchez inspirado en el mundo del skate, incluidas Rocket Science, un diseño más corto y ancho para un deslizamiento con maniobrabilidad sin renunciar a la estabilidad, el rocker plano Flat Out Rocker que ofrece tolerancia y facilita las presiones, y un núcleo Aspen Strong Core que proporciona más pop. Esta tabla está hecha para volar en parques.',
+        images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcuRRxL2KEqKIzY_06OQUGPlY-DRIWvivfVVA7_ssgm8LLv2C54A', 'https://surf3.es/wp-content/uploads/2016/08/salomon-sanchez-2016.jpg'],
         stock: 1,
         available: true,
         price: 200,
