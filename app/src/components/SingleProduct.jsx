@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addProductCart } from '../action-creators/cart'
 import { withStyles } from '@material-ui/core/styles';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
@@ -139,7 +140,7 @@ class SingleProduct extends React.Component{
                         <Button className={classes.button}>
                         comprar
                         </Button>
-                        <Button className={classes.button}>
+                        <Button className={classes.button} onClick={()=>this.props.addProductCart(this.state.currentProduct)}>
                         detalle
                         </Button>
                     </div> 
@@ -176,8 +177,16 @@ const mapStateToProps = state =>{
     };
 };
 
+const mapDispatchToProp = dispatch=>{
+    return {
+        addProductCart(product){
+        dispatch(addProductCart(product))
+      }
+    };
+  };
+
 SingleProduct.propTypes = {
     classes: PropTypes.object.isRequired,
   };
   
-  export default connect(mapStateToProps)(withStyles(styles)(SingleProduct));
+  export default connect(mapStateToProps,mapDispatchToProp)(withStyles(styles)(SingleProduct));
