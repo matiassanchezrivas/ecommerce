@@ -13,6 +13,23 @@ router.get('/', function (req, res, next) {
     })
 });
 
+router.get("/:id",function(req,res){
+    Product.findAll({
+        where:{
+            id: req.params.id
+        }
+    })
+.then(function(data){   
+      
+    res.send(data)
+})
+
+})
+
+
+
+
+
 router.post('/', function (req, res) {
     console.log('BODY', req.body);
     

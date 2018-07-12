@@ -20,4 +20,6 @@ export const CHECKOUT_CART = 'CHECKOUT_CART';
 
 // Users
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+//Product
+export const ADD_TO_CART = 'ADD_TO_CART'
 

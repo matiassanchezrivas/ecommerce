@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { addToCart } from '../action-creators/products'
+import store from '../store'
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 import './MenuProduct.css';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -12,6 +15,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import axios from 'axios';
 axios.defaults.baseURL='http://localhost:3002'
+
+ 
 
 const db =[
   {Nombre:"iphone 5", descripcion:'Lizards are a widespread group of squamate reptiles, with over 6,000 species, rangingacross all continents except Antarctica',imagen:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWfnD5ehNmZO3CeClig1Zacs8hybmYyRevuF6ajW7Utd2ToQh2",categoria: "categoria 1"},
@@ -30,14 +35,75 @@ const styles = theme => ({
     padding: theme.spacing.unit * 2,
     textAlign: 'center',
     color: theme.palette.text.secondary,
-  },  
-  card: {
-    maxWidth: 345,
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  }
+  itemsList:{
+      flex: 0.7,
+      paddingRight: '1rem',
+  },
+  buyBox:{
+      background: 'white',
+      flex: 0.3,
+  },
+  total:{
+      color: 'grey' ,
+      flex: 0.8,
+  },
+  checkout:{
+      flex: 0.2,
+  },
+  button: {
+      fontSize: '0.81rem',
+      background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+      borderRadius: 3,
+      border: 0,
+      color: 'white',
+      height: 15,
+      padding: '0 20px',
+      boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+  },
+  textField: {
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
+      width: '3rem',
+    },
+  product: {
+      background: 'white',
+      borderBottom: '1px solid #DDD',
+      padding: '1rem',
+      display: 'flex',
+      flexDirection: 'row',
+      flex: 1,
+  },
+  imagen: {
+      height: '9rem',
+      width: '10rem',
+      flex: 0.3,
+  },
+  ImgProd: {
+      maxHeight: '8rem',
+  },
+  title:{
+      paddingRight: '0.9rem',
+      flex: 0.5,
+      textAlign: 'left',
+  },
+  price:{
+      color: 'grey',
+      flex: 0.1,
+  },
+  cantidad:{
+      flex: 0.1,
+  },
+  Appbar: {
+    background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+  }  
+  // card: {
+  //   maxWidth: 345,
+  // },
+  // media: {
+  //   height: 0,
+  //   paddingTop: '56.25%', // 16:9
+  // }
 });
 
 class MenuProduct extends React.Component {
@@ -48,7 +114,7 @@ class MenuProduct extends React.Component {
       CategoryFilter: null,
       Product:[]
     };
-
+    this.addToCart=this.addToCart.bind(this)
     this.categoryFilterList=this.categoryFilterList.bind(this)   
     axios.get('/product')
    .then(response =>{
@@ -79,6 +145,10 @@ class MenuProduct extends React.Component {
     console.log('filtro seleccionado:' ,this.state.filter)
   }
 
+  addToCart(product){
+      store.dispatch(addToCart(product))
+  }
+
   render (){
     let rows=[]
     let cat=[]
@@ -93,19 +163,36 @@ class MenuProduct extends React.Component {
         const filter = this.state.filter
         if(product.Nombre.toLocaleLowerCase().indexOf(filter.toLowerCase()) > -1){rows.push(<Grid item xs={4} key={product.Nombre}>
         <Paper className={classes.paper}>
-          <div>
-            <Card className={classes.card}>
-              <CardMedia className={classes.media} image={product.imagen} title="Contemplative Reptile"/>
-              <CardContent>
-                  <Typography gutterBottom variant="headline" component="h2">{product.Nombre}       </Typography>
-                  <Typography component="p">{product.descripcion}</Typography>
-              </CardContent>
-              <CardActions>
-                  <Button size="small" color="primary">comprar</Button>
-                  <Button size="small" color="primary">Detalle</Button>
-              </CardActions>
-            </Card>      
-         </div>
+        <div className={classes.imagen}>
+                        <img src={product.imagen} className={classes.ImgProd}/>
+                    </div>
+
+                    <div className={classes.title}>
+                        <h4>{product.Nombre}</h4>
+                        <Button className={classes.button} onClick={()=>this.addToCart(product)}>
+                        comprar
+                        </Button>
+                        <Button className={classes.button}>
+                        detalle
+                        </Button>
+                    </div>
+            
+                    <div className={classes.price}>
+                        <h4>${200}</h4>
+                    </div>
+                
+                    <div className={classes.cantidad}>
+                            <TextField
+                            label="Cantidad"
+                            type="number"
+                            className={classes.textField}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            margin="normal"
+                            />
+                    </div>
+                    
         </Paper>
        </Grid>)}
       })  
@@ -117,26 +204,42 @@ class MenuProduct extends React.Component {
     if(categoria ==null || product.categoria.indexOf(categoria) > -1){
     rows.push(<Grid item xs={4} key={product.Nombre}>
                 <Paper className={classes.paper}>
-                  <div>
-                    <Card className={classes.card}>
-                      <CardMedia className={classes.media} image={product.imagen} title="Contemplative Reptile"/>
-                      <CardContent>
-                          <Typography gutterBottom variant="headline" component="h2">{product.Nombre}</Typography>
-                          <Typography component="p">{product.descripcion}</Typography>
-                      </CardContent>
-                      <CardActions>
-                          <Button size="small" color="primary">comprar</Button>
-                          <Button size="small" color="primary">Detalle</Button>
-                      </CardActions>
-                    </Card>      
-                  </div>
+                <div className={classes.imagen}>
+                        <img src={product.imagen} className={classes.ImgProd}/>
+                    </div>
+
+                    <div className={classes.title}>
+                        <h4>{product.Nombre}</h4>
+                        <Button className={classes.button} onClick={()=>this.addToCart(product)}>
+                        comprar
+                        </Button>
+                        <Button className={classes.button}>
+                        detalle
+                        </Button>
+                    </div>
+            
+                    <div className={classes.price}>
+                        <h4>${200}</h4>
+                    </div>
+                
+                    <div className={classes.cantidad}>
+                            <TextField
+                            label="Cantidad"
+                            type="number"
+                            className={classes.textField}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            margin="normal"
+                            />
+                    </div>
                 </Paper>
               </Grid>)}})    
         }
   }
 
     return(
-    <div className={classes.root} className ="container">
+    <div className={classes.Appbar} className ="container">
       <Grid container spacing={24}>
         <Grid item xs>          
           <Paper className={classes.paper}><input type="text" placeholder="Search" onChange={this.filterList.bind(this)}/></Paper>
