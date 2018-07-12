@@ -14,12 +14,10 @@ export const SET_TOTAL_CART = 'SET_TOTAL_CART';
 export const SET_ORDER_FROM_CART = 'SET_ORDER_FROM_CART';
 export const CHECKOUT_CART = 'CHECKOUT_CART';
 
-
-
-
-
 // Users
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
+export const RECEIVE_USERS = 'RECEIVE_USERS';
+
 //Product
 export const ADD_TO_CART = 'ADD_TO_CART'
 
