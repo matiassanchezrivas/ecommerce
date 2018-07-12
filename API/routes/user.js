@@ -9,7 +9,14 @@ const Product = models.Product;
 
 
 router.get('/', function (req, res, next) {
-    res.send('hola desde user');
+    if (req.isAuthenticated() && req.user.type === 'admin') {
+        User.findAll()
+            .then(users => res.status(200).json(users))
+            .catch(err => res.send(err))
+
+    } else {
+        res.status(401).send('Unauthorized')
+    }
 });
 
 router.get('/me', function (req, res, next) {

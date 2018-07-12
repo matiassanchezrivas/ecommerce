@@ -134,77 +134,15 @@ class Login extends Component {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        // start: (song, list) => dispatch(start(song, list)),
-        // fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
-        // fetchSongs: () => dispatch(fetchSongs()),
         setCurrentUser: (user) => dispatch(setCurrentUser(user))
     };
 }
 
 const mapStateToProps = function (state) {
-    //console.log('STATE DEL PLAYLISTCONTAINER', state)
     return {
         currentUser: state.users.currentUser,
-        // playlist: state.playlists.selected,
-        // songs: state.songs
     };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Login))
-
-
-// import React from 'react';
-// import Playlist from '../components/Playlist';
-// import { fetchPlaylist, addSong } from '../action-creators/playlists';
-// import { start } from '../action-creators/player';
-// import { fetchSongs } from '../action-creators/songs';
-// import { connect } from 'react-redux'
-
-// class PlaylistContainer extends React.Component {
-
-//   componentDidMount() {
-//     this.props.fetchPlaylist(this.props.match.params.id);
-//     this.props.fetchSongs();
-//     console.log('PROPS PLAYLIST CONTAINER', this.props)
-//   }
-
-//   componentWillReceiveProps(nextProps) {
-//     if (nextProps.match.params.id !== this.props.match.params.id) {
-//       this.props.fetchPlaylist(nextProps.match.params.id);
-//     }
-//   }
-
-//   render() {
-//     return (
-//       <Playlist
-//         playlist={this.props.playlist}
-//         start={this.props.start}
-//         currentSong={this.props.currentSong}
-//         addSong={this.props.addSong}
-//         songs={this.props.songs}
-//       />
-//     );
-//   }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   return {
-//     start: (song, list) => dispatch(start(song, list)),
-//     fetchPlaylist: (id) => dispatch(fetchPlaylist(id)),
-//     fetchSongs: () => dispatch(fetchSongs()),
-//     addSong: (song) => dispatch(addSong(song))
-
-//   };
-// }
-
-// const mapStateToProps = function (state) {
-//   console.log('STATE DEL PLAYLISTCONTAINER', state)
-//   return {
-//     currentSong: state.player.currentSong,
-//     playlist: state.playlists.selected,
-//     songs: state.songs
-//   };
-// }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(PlaylistContainer)
 
