@@ -137,10 +137,10 @@ class SingleProduct extends React.Component{
                     
                     <div className={classes.title}>
                         <h4>{this.state.currentProduct.name}</h4>
-                        <Button className={classes.button}>
+                        <Button className={classes.button}onClick={()=>this.props.addProductCart(this.state.currentProduct)}>
                         comprar
                         </Button>
-                        <Button className={classes.button} onClick={()=>this.props.addProductCart(this.state.currentProduct)}>
+                        <Button className={classes.button} >
                         detalle
                         </Button>
                     </div> 
