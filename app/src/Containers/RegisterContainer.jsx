@@ -45,6 +45,7 @@ class Register extends Component {
     }
 
     componentDidMount() {
+        
     }
 
     handleLocalLogin(event) {

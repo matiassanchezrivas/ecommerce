@@ -6,9 +6,10 @@ const receiveOrders = (orders) => ({
   orders,
 });
 
-const receiveOrder = (order) => ({
+const receiveOrder = ( order) => ({
   type: RECEIVE_ORDER,
   order,
+
 });
 
 const setOrder = (order) => ({
@@ -36,4 +37,4 @@ export const fetchOrders = userId => dispatch =>
 export const fetchOrder = id => dispatch =>
   axios.get(`/order/${id}`)
     .then(res => res.data)
-    .then(orders => dispatch(receiveOrder(orders)));
+    .then(order => dispatch(receiveOrder(order)));

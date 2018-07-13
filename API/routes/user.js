@@ -27,6 +27,9 @@ router.get('/', function (req, res, next) {
     }
 });
 
+
+
+
 router.get('/me', function (req, res, next) {
     if (req.isAuthenticated()) {
         res.status(200).json(
@@ -42,6 +45,22 @@ router.get('/me', function (req, res, next) {
     } else {
         res.status(401).send('Unauthorized')
     }
+})
+
+router.post('/change', function (req, res) {
+    User.findOne({
+        where: {
+            id: req.body.id
+        }
+    })
+        .then(
+            (user) => {
+                return user.update(req.body.changes)
+            }
+        )
+        .then((updatedUser)=>{
+            res.send(updatedUser)
+        })
 })
 
 router.get('/:userId', function (req, res, next) {
@@ -91,7 +110,6 @@ router.post('/', function (req, res) {
         res.status(200).send(data);
     })
 });
-
 
 
 
