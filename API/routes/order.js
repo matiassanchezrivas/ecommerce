@@ -30,7 +30,7 @@ router.get('/', function (req, res, next) {
 
 
 
-router.get('/api/:orderId', function (req, res, next) {
+router.get('/:orderId', function(req, res, next){
     Order.findOne({
         where: { id: req.params.orderId },
         include: [
