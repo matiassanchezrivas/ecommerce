@@ -38,8 +38,24 @@ module.exports = () => {
     }
     products[1] = {
         name: 'Snowboard burton',
-        description: 'Tabla de snowboard  Salomon Sanchez la freestyle definitiva acortada y con anchura extra para mantener la estabilidad en trucos. Blandita y reactiva como una freestyle tiene que ser. Todas las características populares de temporadas pasadas del snowboard Sanchez inspirado en el mundo del skate, incluidas Rocket Science, un diseño más corto y ancho para un deslizamiento con maniobrabilidad sin renunciar a la estabilidad, el rocker plano Flat Out Rocker que ofrece tolerancia y facilita las presiones, y un núcleo Aspen Strong Core que proporciona más pop. Esta tabla está hecha para volar en parques.',
-        images: ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcuRRxL2KEqKIzY_06OQUGPlY-DRIWvivfVVA7_ssgm8LLv2C54A', 'https://surf3.es/wp-content/uploads/2016/08/salomon-sanchez-2016.jpg'],
+        description: 'Snowboard clash v-rocker 155',
+        images: ['https://cdn.luxedb.com/wp-content/uploads/2011/11/Star-Wars-Inspired-Products-from-Burton-Snowboards-4.jpg', 'url2'],
+        stock: 1,
+        available: true,
+        price: 200,
+    }
+    products[2] = {
+        name: 'DC Focus Snowboard 2017',
+        description: 'Snowboard clash v-rocker 155',
+        images: ['https://i.pinimg.com/originals/d4/ef/78/d4ef78ebe0e01369d9e162afcf88b16f.jpg', 'url2'],
+        stock: 1,
+        available: true,
+        price: 200,
+    }
+    products[3] = {
+        name: 'Snowboard burton',
+        description: 'Snowboard clash v-rocker 155',
+        images: ['http://img0.biker-boarder.de/detail_oxp1/atomic17_an5105326_savor_otg_photo_black_photochromic.jpg', 'url2'],
         stock: 1,
         available: true,
         price: 200,

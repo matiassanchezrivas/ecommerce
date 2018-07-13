@@ -14,7 +14,12 @@ router.get('/', function (req, res, next) {
             {
                 model: Product,
                 as: "product"
-            }
+            },
+            {
+                model: User,
+                as: "owner"
+            },
+            
         ]
     }).then(
         (ordenes) => {
