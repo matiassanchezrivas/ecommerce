@@ -20,10 +20,15 @@ import MenuItem from '@material-ui/core/MenuItem';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
+import red from '@material-ui/core/colors/red';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import SaveIcon from '@material-ui/icons/Save';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
 
 const styles = theme => ({
   row: {
@@ -45,7 +50,7 @@ const styles = theme => ({
     flexWrap: 'wrap',
   },
   title: {
-    color: 'red',
+    color: red[500],
   },
   titleBar: {
     background:
@@ -60,11 +65,34 @@ const styles = theme => ({
     position: 'absolute',
     bottom: theme.spacing.unit * 2,
     right: theme.spacing.unit * 2,
+    color: 'white',
+    background: red[500]
+  },
+  delete: {
+    position: 'absolute',
+    top: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 2,
     color: theme.palette.common.white,
   },
+  deleteProduct: {
+    position: 'absolute',
+    top: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 2,
+  }
 });
 
 const currencies = [];
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      //width: 250,
+    },
+  },
+};
 
 class BackofficeUser extends React.Component {
   constructor() {
@@ -77,6 +105,8 @@ class BackofficeUser extends React.Component {
       stock: 0,
       description: '',
       name: '',
+      myCategories: [],
+      allCategories: []
     };
     this.handleChange.bind(this)
     this.togglePanel.bind(this)
@@ -104,6 +134,10 @@ class BackofficeUser extends React.Component {
     this.setState({ [prop]: event.target.value });
   };
 
+  handleChangeChip = event => {
+    this.setState({ myCategories: event.target.value });
+  };
+
   componentDidMount() {
     const { available, description, stock, price, name } = this.props.product;
     this.setState({
@@ -112,7 +146,14 @@ class BackofficeUser extends React.Component {
   }
 
   render() {
-    const { classes, product } = this.props;
+
+    const { classes, product, categories, theme } = this.props;
+    //Categories names
+    categories.forEach((category) => {
+      if (this.state.allCategories.indexOf(category.name) == -1) {
+        this.state.allCategories.push(category.name)
+      }
+    })
     return (<ExpansionPanel expanded={this.state.expanded === 'panel4'} onChange={this.togglePanel('panel4')}>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Grid container className={classes.root} spacing={16} direction="column" align="center">
@@ -125,8 +166,18 @@ class BackofficeUser extends React.Component {
             <Typography>
               {product.name}
             </Typography>
+            <div className={classes.deleteProduct}>
+              <IconButton aria-label="Save">
+                <SaveIcon />
+              </IconButton>
+              <IconButton aria-label="Delete">
+                <DeleteIcon />
+              </IconButton>
+
+            </div>
           </Grid>
         </Grid>
+
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <Grid container className={classes.root} spacing={16} direction="column" align="center">
@@ -175,40 +226,46 @@ class BackofficeUser extends React.Component {
               onChange={this.handleChange('description')}
               margin="normal"
             />
+
           </Grid>
+
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="select-multiple-chip">Categorias</InputLabel>
+            <Select
+              multiple
+              value={this.state.myCategories}
+              onChange={this.handleChangeChip}
+              input={<Input id="select-multiple-chip" fullWidth />}
+              renderValue={selected => (
+                <div className={classes.chips}>
+                  {selected.map(value => <Chip key={value} label={value} className={classes.chip} />)}
+                </div>
+              )}
+              MenuProps={MenuProps}
+            >
+              {this.state.allCategories.map(category => (
+                <MenuItem
+                  key={category}
+                  value={category}
+                  style={{
+                    fontWeight:
+                      this.state.myCategories.indexOf(category) === -1
+                        ? theme.typography.fontWeightRegular
+                        : theme.typography.fontWeightMedium,
+                  }}
+                >
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <Grid item xs>
-            {/* <TextField
-              id="name"
-              label="Nombre"
-              defaultValue={user.name}
-              className={classes.input}
-              onChange={this.handleChange('name')}
-              margin="normal"
-              fullWidth
-            />
-            <TextField
-              id="id"
-              label="Id del usuario"
-              className={classes.input}
-              defaultValue={user.id}
-              onChange={this.handleChange('id')}
-              margin="normal"
-              disabled
-              fullWidth
-            />
-            <TextField
-              id="email"
-              label="Correo electrónico"
-              className={classes.input}
-              defaultValue={user.email}
-              onChange={this.handleChange('email')}
-              margin="normal"
-              fullWidth
-            /> */}
 
           </Grid>
           <Grid item xs>
+
             <GridList className={classes.gridList} cols={2.5}>
+
               {product.images.map((img, i) => (
                 <GridListTile key={i}>
                   <img src={img} />
@@ -226,15 +283,17 @@ class BackofficeUser extends React.Component {
                   />
                 </GridListTile>
               ))}
+
+
             </GridList>
+            {this.state.expanded ? <Button variant="fab" className={classes.fab} background={classes.title.color}>
+              <AddIcon />
+            </Button> : null}
           </Grid>
         </Grid>
-        <Button variant="fab" className={classes.fab} color={classes.fab.color}>
-          <AddIcon />
-        </Button>
-        <Button variant="fab" className={classes.fab} color={classes.fab.color}>
+        {/* <Button variant="fab" className={classes.delete} color={classes.fab.color}>
           <removeIcon />
-        </Button>
+        </Button> */}
       </ExpansionPanelDetails>
     </ExpansionPanel>)
   }
@@ -245,6 +304,6 @@ BackofficeUser.propTypes = {
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(BackofficeUser);
+export default withStyles(styles, { withTheme: true })(BackofficeUser);
 
 // admin: this.props.user.admin === 'admin',
