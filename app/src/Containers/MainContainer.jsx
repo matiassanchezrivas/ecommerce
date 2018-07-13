@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import '../components/Main.css';
+import '../css/Main.css';
 
 import Button from '@material-ui/core/Button';
 import MenuAppBar from './MenuAppBar'
@@ -12,7 +12,6 @@ import OrdersAdminContainer from './OrdersAdminContainer'
 
 import Products from './ProductsContainer'
 
-import MenuProduct from '../components/MenuProduct';
 import SingleProduct from '../components/SingleProduct';
 
 import ProfileContainer from './ProfileContainer';
@@ -22,6 +21,7 @@ import axios from '../config/axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../action-creators/user'
 import CartContainer from './CartContainer';
+import MenuProductContainer from './MenuProductContainer';
 
 class Main extends React.Component {
 
@@ -45,14 +45,13 @@ class Main extends React.Component {
         <Switch>
           <Route exact path="/login" component={Login} />
           <Route exact path="/cart" component={CartContainer} />
-          <Route exact path="/product" component={MenuProduct} />
+          <Route exact path="/product" component={MenuProductContainer} />
           <Route exact path="/product/1" component={SingleProduct} />
           <Route exact path="/profile" component={Perfil} />
           <Route exact path="/user" component={ProfileContainer} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/users" component={Users} />
           <Route exact path="/admin/orders" component={OrdersAdminContainer} />
-          <Redirect from="/" to="/Users" />
           <Route exact path="/admin/users" component={Users} />
           <Route exact path="/admin/products" component={Products} />
           <Redirect from="/" to="/admin/products" />

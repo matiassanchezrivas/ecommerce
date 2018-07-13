@@ -31,7 +31,7 @@ const initialState = {
   items: [],
   status: 'carrito',
   total: 0,
-  
+
 };
 
 export default (state = initialState, action) => {
@@ -40,30 +40,44 @@ export default (state = initialState, action) => {
       var index = action.index
       return {
         ...state,
-        items: [].concat(state.items.slice(0, index), state.items.slice(index+1, state.items.length))
-    };
+        items: [].concat(state.items.slice(0, index), state.items.slice(index + 1, state.items.length))
+      };
     case ADD_PRODUCT_CART:
-      
-      return {
-        ...state,
-        items: state.items.concat(action.product )
-    };
+      var hayProducto = false;
+      state.items.forEach((item) => {
+        if (item.id == action.product.id) {
+          action.product.cantidad++;
+          hayProducto = true;
+        }
+      })
+      if (hayProducto) {
+        return {
+          ...state,
+        };
+      }
+      else {
+        return {
+          ...state,
+          items: state.items.concat(action.product)
+        };
+      }
+
     case UPDATE_QUANT_CART:
       var i = action.index
       const value = action.value
       return {
         ...state,
         items: [
-          ...state.items.slice(0,i),
-          {...state.items[i], cantidad: value},
+          ...state.items.slice(0, i),
+          { ...state.items[i], cantidad: value },
           ...state.items.slice(i + 1)
         ]
-    };
+      };
     case EMPTY_CART:
-    return {
-      ...state,
-      items: []
-  };
+      return {
+        ...state,
+        items: []
+      };
 
 
     default:

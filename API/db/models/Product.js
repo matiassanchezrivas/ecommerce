@@ -29,7 +29,11 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.FLOAT,
     allowNull: false
-  }
+  },
+  cantidad: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  },
 })
 
 //Product.hasMany(Category, { as: 'Categories' });
