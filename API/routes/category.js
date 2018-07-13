@@ -7,8 +7,18 @@ const models = require('../db/models');
 const Category = models.Category;
 
 
+
 router.get('/', function (req, res, next) {
-    res.send('hola desde Category');
+    if (req.isAuthenticated() && req.user.type === 'admin') {
+        Category.findAll({
+
+        })
+            .then(users => res.status(200).json(users))
+            .catch(err => res.send(err))
+
+    } else {
+        res.status(401).send('Unauthorized')
+    }
 });
 
 router.post('/', function (req, res) {

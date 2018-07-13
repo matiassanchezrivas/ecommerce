@@ -4,11 +4,21 @@ const router = express.Router();
 // modelos que voy a usar 
 const models = require('../db/models');
 const User = models.User;
+const Order = models.Order;
+const Product = models.Product;
+const Category = models.Category;
 
 
 router.get('/', function (req, res, next) {
     if (req.isAuthenticated() && req.user.type === 'admin') {
-        User.findAll()
+        User.findAll({
+            // include: [
+            //     {
+            //         model: Category,
+            //         as: 'category'
+            //     }
+            // ]
+        })
             .then(users => res.status(200).json(users))
             .catch(err => res.send(err))
 
@@ -45,6 +55,22 @@ router.get('/:userId', function (req, res, next) {
                 res.json(user)
             }
         )
+})
+
+router.get('/:userId/orders', function (req, res, next) {
+    Order.findAll({
+        where: { ownerId: req.params.userId },
+        include: [
+            {
+                model: Product,
+                as: "product"
+            }
+        ]
+    }).then(
+        (ordenes) => {
+            res.json(ordenes)
+        }
+    )
 })
 
 

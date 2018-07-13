@@ -19,5 +19,8 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 
 //Product
-export const ADD_TO_CART = 'ADD_TO_CART'
+export const SET_CURRENT_PRODUCT = 'SET_CURRENT_PRODUCT'
+export const RECEIVE_PRODUCTS = 'RECEIVE_PRODUCTS'
 
+//Categories
+export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES'

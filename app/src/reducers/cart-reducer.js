@@ -42,6 +42,12 @@ export default (state = initialState, action) => {
         ...state,
         items: [].concat(state.items.slice(0, index), state.items.slice(index+1, state.items.length))
     };
+    case ADD_PRODUCT_CART:
+      
+      return {
+        ...state,
+        items: state.items.concat(action.product )
+    };
     case UPDATE_QUANT_CART:
       var i = action.index
       const value = action.value

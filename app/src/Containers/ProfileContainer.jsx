@@ -2,62 +2,51 @@ import React from 'react';
 import Profile from '../components/Profile';
 import Orders from './OrdersContainer';
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { fetchOrders } from '../action-creators/orders'
 
 class ProfileContainer extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: {},
-            orders: []
-        }
+    // constructor(props) {
+    //     super(props);
+    // }
+    state = {
+        userArrived: false
     }
-
-    componentDidMount() {
-        axios.get(`/user/${1}`)
-            .then(response => {
-                return response.data
-            })
-            .then(user => {
-                this.setState({
-                    user: user
-                }, () => this.receiveOrders(this.state.user.type))
-            });
+    componentDidMount(){
+        // this.props.currentUser && this.props.fetchOrders(this.props.currentUser.id)
+        // console.log('user2', this.props.currentUser)
+        // this.props.fetchOrders(this.props.currentUser.id);
     }
-
-    receiveOrders(userType) {
-        if (userType === 'admin') {
-            axios.get(`/order`)
-                .then(response => {
-                    return response.data
-                })
-                .then(orders => {
-                    this.setState({
-                        orders: orders
-                    })
-                });
-        }
-        if (userType == 'regular') {
-            console.log('regular', userType)
-            axios.get(`/order/${2}`)
-                .then(response => {
-                    return response.data
-                })
-                .then(orders => {
-                    this.setState({
-                        orders: orders
-                    })
-                });
+    componentWillReceiveProps(nextProps) {
+        if(!this.state.userArrived) {
+            this.setState({
+                userArrived: true
+            }, ()=> this.props.fetchOrders(nextProps.currentUser.id))
         }
     }
 
     render() {
+        console.log('current user', this.props.currentUser)
+
         return (
             <div>
-                <Profile profile={this.state.user} />
-                <Orders orders={this.state.orders} {...this.props} />
+                <Profile currentUser={this.props.currentUser} />
+                <Orders orders={this.props.orders} {...this.props} />
             </div>
         )
     }
 }
 
-export default ProfileContainer;
+function mapDispatchToProps(dispatch) {
+    return {
+        fetchOrders: (id) => dispatch(fetchOrders(id))
+    }
+  }
+  
+  const mapStateToProps = function (state) {
+    return {
+      currentUser: state.users.currentUser,
+      orders: state.orders.orders
+    };
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer);
