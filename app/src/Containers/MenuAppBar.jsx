@@ -140,7 +140,7 @@ class MenuAppBar extends React.Component {
                   {
                     (this.props.currentUser.email) ?
                       (<div>
-                        <Link to='/profile' className={classes.link}><MenuItem onClick={this.handleClose}>Perfil</MenuItem></Link>
+                        <Link to='/user' className={classes.link}><MenuItem onClick={this.handleClose}>Perfil</MenuItem></Link>
                         <Link to='/index' className={classes.link}><MenuItem onClick={this.handleClose} >Mis compras</MenuItem></Link>
                         <MenuItem onClick={this.handleLogOut}>Cerrar sesión</MenuItem></div>)
                       :

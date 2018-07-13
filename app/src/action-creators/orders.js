@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../config/axios';
 import { RECEIVE_ORDERS, RECEIVE_ORDER, SET_ORDER } from '../constants';
 
 const receiveOrders = (orders) => ({
@@ -6,9 +6,10 @@ const receiveOrders = (orders) => ({
   orders,
 });
 
-const receiveOrder = (order) => ({
+const receiveOrder = ( order) => ({
   type: RECEIVE_ORDER,
   order,
+
 });
 
 const setOrder = (order) => ({
@@ -36,4 +37,4 @@ export const fetchOrders = userId => dispatch =>
 export const fetchOrder = id => dispatch =>
   axios.get(`/order/${id}`)
     .then(res => res.data)
-    .then(orders => dispatch(receiveOrders(orders)));
+    .then(order => dispatch(receiveOrder(order)));

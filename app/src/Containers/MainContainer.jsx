@@ -8,6 +8,7 @@ import Login from './LoginContainer'
 import Register from './RegisterContainer'
 import Perfil from './Perfil'
 import Users from './UsersContainer'
+import OrderDetail from '../components/OrderDetail'
 
 import MenuProduct from '../components/MenuProduct';
 import SingleProduct from '../components/SingleProduct';
@@ -19,6 +20,7 @@ import axios from '../config/axios';
 import { connect } from 'react-redux'
 import { setCurrentUser } from '../action-creators/user'
 import CartContainer from './CartContainer';
+
 
 class Main extends React.Component {
 
@@ -47,7 +49,9 @@ class Main extends React.Component {
           <Route exact path="/profile" component={Perfil} />
           <Route exact path="/user" component={ProfileContainer} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/order/:id" component={OrderDetail} />
           <Route exact path="/users" component={Users} />
+
           <Redirect from="/" to="/Users" />
         </Switch>
       </div>

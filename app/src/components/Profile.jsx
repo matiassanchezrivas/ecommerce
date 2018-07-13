@@ -9,6 +9,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Axios from 'axios';
 
 
 const styles = theme => ({
@@ -46,19 +47,30 @@ class Profile extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            open: false
+            open: false,
+            changePass: ''
         };
     }
 
-    handleChange = name => event => {
-        this.setState({
-            [name]: event.target.value,
-        });
+    handleChange = (e) => {
+        const value = e.target.value
+        this.setState({ changePass: value })
     };
 
     handleClickOpen = () => {
         this.setState({ open: true });
     };
+
+    handleChangePass = () => {
+        //post axios
+        Axios.post('user/change', {
+            changes: {
+                password: this.state.changePass
+            },
+            id: this.props.currentUser.id
+        }).then((respuesta) => console.log(respuesta))
+        this.handleClose()
+    }
 
     handleClose = () => {
         this.setState({ open: false });
@@ -121,17 +133,18 @@ class Profile extends React.Component {
                         <TextField
                             autoFocus
                             margin="dense"
-                            id="name"
+                            id="password"
                             label="Cambio de contraseña"
                             type="password"
                             fullWidth
+                            onChange={this.handleChange}
                         />
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.handleClose} color="primary">
                             Cancelar
                         </Button>
-                        <Button onClick={this.handleClose} color="primary">
+                        <Button onClick={this.handleChangePass} color="primary">
                             Aceptar
                         </Button>
                     </DialogActions>
