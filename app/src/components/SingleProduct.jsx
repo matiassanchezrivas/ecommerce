@@ -33,7 +33,7 @@ const styles = theme => ({
         flex: 1, 
         minHeight: '100%', 
     },
-    itemsList:{
+    itemsList: {
         flex: 0.7,
         paddingRight: '1rem',
     },
@@ -93,7 +93,7 @@ const styles = theme => ({
         color: '#727272' ,
         flex: 0.8,
     },
-    checkout:{
+    checkout: {
         flex: 0.2,
     },
     
@@ -112,7 +112,7 @@ const styles = theme => ({
         marginLeft: theme.spacing.unit,
         marginRight: theme.spacing.unit,
         width: '3rem',
-      },
+    },
     product: {
         background: 'white',
         borderBottom: '1px solid #DDD',
@@ -129,16 +129,16 @@ const styles = theme => ({
     ImgProd: {
         maxHeight: '8rem',
     },
-    title:{
+    title: {
         paddingRight: '0.9rem',
         flex: 0.5,
         textAlign: 'left',
     },
-    price:{
+    price: {
         color: 'grey',
         flex: 0.1,
     },
-    cantidad:{
+    cantidad: {
         flex: 0.1,
     }
 
@@ -149,30 +149,16 @@ const styles = theme => ({
 
 
 
-class SingleProduct extends React.Component{
-    constructor(){
+class SingleProduct extends React.Component {
+    constructor() {
         super()
         this.state = {
-            currentProduct:[]
+            currentProduct: []
         }
 
     }
-    
-    componentDidMount() {
-        console.log('entra al did mount del SingleProduct')
-        axios.get('/product/1')
-          .then(res => res.data)
-          .then((product) => {
-              console.log('currentProduct', product[0])
-            this.setState({
-                currentProduct:product[0]
-            })
-          })
-          .catch(
-            (err) => {
-              console.log('no hay producto con ese id')
-            })
-      }
+
+   
   
     render(){
         const { classes, items, total, eliminar, cantidad, vaciar, userC } =this.props;
@@ -197,7 +183,7 @@ class SingleProduct extends React.Component{
                     <div className={classes.price}>
                         <h4>${this.state.currentProduct.price}</h4>
                     </div>
-                
+
                     <div className={classes.cantidad}>
                            
                     </div>                    
@@ -229,9 +215,9 @@ class SingleProduct extends React.Component{
 };    
 }
 
-const mapStateToProps = state =>{
+const mapStateToProps = state => {
     return {
-        cart:state.cart
+        cart: state.cart
     };
 };
 

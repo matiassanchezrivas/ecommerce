@@ -4,25 +4,33 @@ const router = express.Router();
 // modelos que voy a usar 
 const models = require('../db/models');
 const Product = models.Product
+const Category = models.Category
 
 
 router.get('/', function (req, res, next) {
-    Product.findAll()
-    .then(function(data){
-        res.send(data)
+    Product.findAll({
+        include: [
+            {
+                model: Category,
+                as: 'category'
+            }
+        ]
     })
+        .then(function (data) {
+            res.send(data)
+        })
 });
 
-router.get("/:id",function(req,res){
+router.get("/:id", function (req, res) {
     Product.findAll({
-        where:{
+        where: {
             id: req.params.id
         }
     })
-.then(function(data){   
-      
-    res.send(data)
-})
+        .then(function (data) {
+
+            res.send(data)
+        })
 
 })
 
@@ -32,7 +40,7 @@ router.get("/:id",function(req,res){
 
 router.post('/', function (req, res) {
     console.log('BODY', req.body);
-    
+
     Product.findOrCreate({
         where: {
             name: req.body.name,

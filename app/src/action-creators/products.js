@@ -18,3 +18,10 @@ export const fetchProducts = () => dispatch =>
     .then(products => {
       dispatch(receiveProducts(products))
     });
+
+export const fetchProduct = (id) => dispatch =>
+  axios.get(`/product/${id}`)
+    .then(res => res.data)
+    .then(product => {
+      dispatch(setCurrentProduct(product))
+    });

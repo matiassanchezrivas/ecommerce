@@ -1,8 +1,7 @@
 import { RECEIVE_PRODUCTS, SET_CURRENT_PRODUCT } from '../constants';
 
 const initialState = {
-  product: {
-
+  currentProduct: {
   },
   products: []
 

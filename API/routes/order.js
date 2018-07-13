@@ -25,17 +25,17 @@ router.get('/', function (req, res, next) {
 
 
 
-router.get('/api/:orderId', function(req, res, next){
+router.get('/api/:orderId', function (req, res, next) {
     Order.findOne({
         where: { id: req.params.orderId },
         include: [
             {
                 model: Product,
-                as:"product"
+                as: "product"
             }
         ]
     }).then(
-        (orden)=> {
+        (orden) => {
             res.json(orden)
         }
     )

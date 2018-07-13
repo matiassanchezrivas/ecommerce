@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Grid from '@material-ui/core/Grid';
 import BackofficeProduct from '../components/BackofficeProduct'
 import { fetchProducts } from '../action-creators/products'
+import { fetchCategories } from '../action-creators/category'
 
 const styles = theme => ({
     root: {
@@ -34,6 +35,7 @@ class Products extends Component {
 
     componentDidMount() {
         this.props.fetchProducts();
+        this.props.fetchCategories();
     }
 
     render() {
@@ -45,7 +47,7 @@ class Products extends Component {
                     <Grid item xs={8}>
                         {
                             this.props.products.map((product) => {
-                                return <BackofficeProduct key={product.id} product={product} />
+                                return <BackofficeProduct key={product.id} product={product} categories={this.props.categories} />
                             })
                         }
                     </Grid>
@@ -56,13 +58,15 @@ class Products extends Component {
 }
 function mapDispatchToProps(dispatch) {
     return {
-        fetchProducts: () => dispatch(fetchProducts())
+        fetchProducts: () => dispatch(fetchProducts()),
+        fetchCategories: () => dispatch(fetchCategories())
     };
 }
 
 const mapStateToProps = function (state) {
     return {
         products: state.products.products,
+        categories: state.categories.categories
     };
 }
 
