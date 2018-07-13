@@ -126,6 +126,7 @@ const styles = theme => ({
   
 });
 
+
 function Cart(props) {
   const { classes, items, total, eliminar, cantidad, vaciar, userC } = props;
   return (
@@ -136,11 +137,11 @@ function Cart(props) {
                 <div key={n.id} className={classes.product}>
     
                     <div className={classes.imagen}>
-                        <img src={n.img} alt={n.title} className={classes.ImgProd}/>
+                        <img src={n.images[0]} alt={n.name} className={classes.ImgProd}/>
                     </div>
 
                     <div className={classes.title}>
-                        <h4>{n.title}</h4>
+                        <h4>{n.name}</h4>
                         <Button onClick={() => eliminar(index)} className={classes.button}>
                         eliminar
                         </Button>
