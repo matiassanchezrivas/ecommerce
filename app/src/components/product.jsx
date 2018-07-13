@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
     root: {
@@ -42,7 +43,8 @@ const styles = theme => ({
         height: 15,
         padding: '0 20px',
         boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
-        margin: theme.spacing.unit
+        margin: theme.spacing.unit,
+        textDecorationLine: 'none'
     },
     textField: {
         marginLeft: theme.spacing.unit,
@@ -78,14 +80,14 @@ const styles = theme => ({
     },
     Appbar: {
         background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-    }
+    },
     // card: {
     //   maxWidth: 345,
     // },
     // media: {
     //   height: 0,
     //   paddingTop: '56.25%', // 16:9
-    // }
+
 });
 
 class product extends React.Component {
@@ -110,9 +112,11 @@ class product extends React.Component {
                                 <Button className={classes.button} onClick={() => this.props.addProductCart(product)}>
                                     comprar
                                 </Button>
-                                <Button className={classes.button}>
-                                    detalle
+                                <Link to={`/product/${product.id}`}>
+                                    <Button className={classes.button}>
+                                        detalle
                                  </Button>
+                                </Link>
                             </Grid>
 
                             <div className={classes.price}>

@@ -48,12 +48,19 @@ class MenuProduct extends React.Component {
     super()
     this.state = {
       filter: '',
-      CategoryFilter: null,
+      CategoryFilter: '',
       product: []
     };
 
     this.categoryFilterList = this.categoryFilterList.bind(this)
   }
+
+  handleChange = event => {
+    //console.log('index', allCategories.indexOf(CategoryFilter))
+
+    this.setState({ CategoryFilter: event.target.value });
+  };
+
 
   componentDidMount() {
     this.props.fetchProducts();
@@ -82,10 +89,8 @@ class MenuProduct extends React.Component {
   render() {
     let rows = []
     let cat = []
-    const { classes, products, categories } = this.props
+    const { classes, products, allCategories } = this.props
     const { filter, CategoryFilter } = this.state
-
-
 
     return (
       <div className={classes.Appbar} className="container">
@@ -100,7 +105,7 @@ class MenuProduct extends React.Component {
                 onChange={this.filterList.bind(this)}
               />
               <Select
-                value={this.state.age}
+                value={this.state.CategoryFilter}
                 onChange={this.handleChange}
                 inputProps={{
                   name: 'age',
@@ -110,9 +115,13 @@ class MenuProduct extends React.Component {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
+                {
+                  allCategories.map((categoria) => {
+                    return (
+                      <MenuItem key={categoria.id} value={categoria.name}>{categoria.name}</MenuItem>
+                    )
+                  })
+                }
               </Select>
             </Paper>
           </Grid>
@@ -122,12 +131,24 @@ class MenuProduct extends React.Component {
         <Grid container spacing={24} align="center">
           {
             products.map((product) => {
-              if (filter == '' || (product.name.toLowerCase().indexOf(filter.toLowerCase()) > -1 && !CategoryFilter || categories.indexOf(CategoryFilter) > -1)) {
-                return (
-                  <Grid item xs>
-                    <Product product={product} addProductCart={this.props.addProductCart} />
-                  </Grid>
-                )
+              console.log(product.category)
+              if (filter == '' || (product.name.toLowerCase().indexOf(filter.toLowerCase()) > -1)) {
+                var categoryMatch = false;
+                product.category.forEach((cat) => {
+                  console.log(cat.name, categoryMatch, 'CATEGORIAS')
+                  if (cat.name == CategoryFilter) {
+                    categoryMatch = true
+                  }
+                })
+
+
+                if (CategoryFilter == '' || categoryMatch) {
+                  return (
+                    <Grid key={product.id} item xs>
+                      <Product product={product} addProductCart={this.props.addProductCart} />
+                    </Grid>
+                  )
+                }
               }
             })
           }
@@ -149,7 +170,7 @@ function mapDispatchToProps(dispatch) {
 const mapStateToProps = function (state) {
   return {
     products: state.products.products,
-    categories: state.categories.categories
+    allCategories: state.categories.categories
   };
 }
 

@@ -45,7 +45,7 @@ class Register extends Component {
     }
 
     componentDidMount() {
-        
+
     }
 
     handleLocalLogin(event) {
@@ -60,7 +60,7 @@ class Register extends Component {
                 console.log('respuesta del login', user)
                 this.props.setCurrentUser(user)
                 console.log(this.props)
-                this.props.history.push('/profile')
+                this.props.history.push('/product')
             })
             .catch((err) => {
                 console.log(err)

@@ -48,17 +48,16 @@ class Main extends React.Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/cart" component={CartContainer} />
           <Route exact path="/product" component={MenuProductContainer} />
-          <Route exact path="/product/1" component={SingleProduct} />
+          <Route exact path="/product/:id" component={SingleProduct} />
           <Route exact path="/profile" component={Perfil} />
           <Route exact path="/user" component={ProfileContainer} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/order/:id" component={OrderDetail} />
           <Route exact path="/users" component={Users} />
-
           <Route exact path="/admin/orders" component={OrdersAdminContainer} />
           <Route exact path="/admin/users" component={Users} />
           <Route exact path="/admin/products" component={Products} />
-          <Redirect from="/" to="/admin/products" />
+          <Redirect from="/" to="product" />
         </Switch>
       </div>
     );

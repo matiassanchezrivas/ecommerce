@@ -161,7 +161,7 @@ class SingleProduct extends React.Component {
 
 
     render() {
-        const { classes, items, total, eliminar, cantidad, vaciar, userC } = this.props;
+        const { classes, userC } = this.props;
         return (
             <div className={classes.root}>
                 <div className={classes.itemsList}>
@@ -215,22 +215,27 @@ class SingleProduct extends React.Component {
     };
 }
 
-const mapStateToProps = state => {
-    return {
-        cart: state.cart
-    };
-};
-
-const mapDispatchToProp = dispatch => {
-    return {
-        addProductCart(product) {
-            dispatch(addProductCart(product))
-        }
-    };
-};
-
 SingleProduct.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles)(SingleProduct));
+//export default connect(mapStateToProps, mapDispatchToProp)(withStyles(styles)(SingleProduct));
+
+function mapDispatchToProps(dispatch) {
+    return {
+        // fetchProducts: () => dispatch(fetchProducts()),
+        // fetchCategories: () => dispatch(fetchCategories()),
+        addProductCart(product) {
+            dispatch(addProductCart(product))
+        }
+    };
+}
+
+const mapStateToProps = function (state) {
+    return {
+        products: state.products.products,
+        categories: state.categories.categories
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SingleProduct))

@@ -75,8 +75,8 @@ router.get('/google',
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
     console.log(req.user);
 
-    res.send('ok')
-    // res.redirect('/profile')
+    //res.send('ok')
+    res.redirect('http://localhost:3000/profile')
 })
 
 //auth with local
