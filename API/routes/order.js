@@ -14,7 +14,12 @@ router.get('/', function (req, res, next) {
             {
                 model: Product,
                 as: "product"
-            }
+            },
+            {
+                model: User,
+                as: "owner"
+            },
+            
         ]
     }).then(
         (ordenes) => {
@@ -31,11 +36,11 @@ router.get('/:orderId', function(req, res, next){
         include: [
             {
                 model: Product,
-                as:"product"
+                as: "product"
             }
         ]
     }).then(
-        (orden)=> {
+        (orden) => {
             res.json(orden)
         }
     )

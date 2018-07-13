@@ -29,8 +29,8 @@ module.exports = () => {
     var products = [];
     products[0] = {
         name: 'Skis salomon',
-        description: 'Salomon skis',
-        images: ['url1', 'url2'],
+        description: 'Capa única de fibra preimpregnada que consta de un tejido de carbono y lino a lo largo del esquí. Combina la increíble fuerza y el peso mínimo de la fibra de carbono para ofrecer estabilidad y refuerzo, con un nivel de amortiguación y absorción de vibraciones que rebasa ampliamente a otras construcciones tradicionales de esquís ligeros y de carbono. Patentada y exclusiva de Salomon.',
+        images: ['https://www.extremevital.com/catalog/images/salomon/2016/Z12_SPEED_l.jpg', 'https://www.extremevital.com/catalog/images/salomon/2017/x_race_sw_z12speed_1_l.jpg', 'https://www.extremevital.com/catalog/images/salomon/2018/x-race_sw_2018_l.jpg'],
         stock: 1,
         available: true,
         price: 50,
@@ -39,7 +39,23 @@ module.exports = () => {
     products[1] = {
         name: 'Snowboard burton',
         description: 'Snowboard clash v-rocker 155',
-        images: ['url1', 'url2'],
+        images: ['https://cdn.luxedb.com/wp-content/uploads/2011/11/Star-Wars-Inspired-Products-from-Burton-Snowboards-4.jpg', 'url2'],
+        stock: 1,
+        available: true,
+        price: 200,
+    }
+    products[2] = {
+        name: 'DC Focus Snowboard 2017',
+        description: 'Snowboard clash v-rocker 155',
+        images: ['https://i.pinimg.com/originals/d4/ef/78/d4ef78ebe0e01369d9e162afcf88b16f.jpg', 'url2'],
+        stock: 1,
+        available: true,
+        price: 200,
+    }
+    products[3] = {
+        name: 'Snowboard burton',
+        description: 'Snowboard clash v-rocker 155',
+        images: ['http://img0.biker-boarder.de/detail_oxp1/atomic17_an5105326_savor_otg_photo_black_photochromic.jpg', 'url2'],
         stock: 1,
         available: true,
         price: 200,

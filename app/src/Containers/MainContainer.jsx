@@ -9,6 +9,9 @@ import Register from './RegisterContainer'
 import Perfil from './Perfil'
 import Users from './UsersContainer'
 import OrderDetail from '../components/OrderDetail'
+import OrdersAdminContainer from './OrdersAdminContainer'
+
+import Products from './ProductsContainer'
 
 import MenuProduct from '../components/MenuProduct';
 import SingleProduct from '../components/SingleProduct';
@@ -52,7 +55,11 @@ class Main extends React.Component {
           <Route exact path="/order/:id" component={OrderDetail} />
           <Route exact path="/users" component={Users} />
 
+          <Route exact path="/admin/orders" component={OrdersAdminContainer} />
           <Redirect from="/" to="/Users" />
+          <Route exact path="/admin/users" component={Users} />
+          <Route exact path="/admin/products" component={Products} />
+          <Redirect from="/" to="/admin/products" />
         </Switch>
       </div>
     );
